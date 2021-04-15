@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { View, Text, StyleSheet, Image } from "react-native";
+import AddFriendButton from "./AddFriendButton";
 
 const UserCard = ({ result }) => {
   return (
@@ -16,10 +16,10 @@ const UserCard = ({ result }) => {
         ) : null}
       </View>
       <View style={styles.cardEndContainer}>
-        {result.are_friends ? null : (
-          <TouchableOpacity style={styles.addFriendButton}>
-            <Ionicons name="person-add-outline" size={25} color="#fff" />
-          </TouchableOpacity>
+        {result.are_friends ? null : result.pending_friend_request ? (
+          <Text style={styles.pending}>Pending</Text>
+        ) : (
+          <AddFriendButton resultUUID={result.profile.uuid} />
         )}
       </View>
     </View>
@@ -57,13 +57,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: "center",
   },
-  addFriendButton: {
+  pending: {
     alignSelf: "flex-end",
-    borderRadius: 3,
-    backgroundColor: "#FF878A",
-    paddingHorizontal: 10,
-    paddingVertical: 5,
     marginRight: 10,
+    fontWeight: "bold",
+    color: "#FF878A",
+    fontSize: 15,
   },
 });
 
