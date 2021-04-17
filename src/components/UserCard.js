@@ -30,27 +30,27 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     flex: 1,
-    paddingLeft: 10,
-    paddingVertical: 10,
+    paddingLeft: 15,
+    paddingVertical: 8,
   },
   profilePicture: {
-    width: 55,
-    height: 55,
-    borderRadius: 55 / 2,
-    borderWidth: 1,
+    width: 50,
+    height: 50,
+    borderRadius: 50 / 2,
+    borderWidth: 0.5,
     borderColor: "#d3d3d3",
   },
   userContainer: {
     alignSelf: "center",
-    marginLeft: 13,
+    marginLeft: 10,
   },
   username: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "500",
     marginBottom: 1,
   },
   fullName: {
-    fontSize: 15,
+    fontSize: 13,
     color: "#9f9f9f",
   },
   cardEndContainer: {

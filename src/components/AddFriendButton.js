@@ -30,7 +30,7 @@ const AddFriendButton = ({ resultUUID }) => {
             sendFriendRequest();
           }}
         >
-          <Ionicons name="person-add-outline" size={25} color="#fff" />
+          <Ionicons name="person-add-outline" size={23} color="#fff" />
         </TouchableOpacity>
       )}
     </View>
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF878A",
     paddingHorizontal: 10,
     paddingVertical: 5,
-    marginRight: 10,
+    marginRight: 15,
   },
   pending: {
     alignSelf: "flex-end",
