@@ -5,8 +5,10 @@ import thimbleApi from "../api/thimble";
 
 const AddFriendButton = ({ resultUUID }) => {
   const [pressed, setPressed] = useState(false);
+  const [disable, setDisable] = useState(false);
 
   const sendFriendRequest = async () => {
+    setDisable(true);
     try {
       await thimbleApi.post("n/friend-request", {
         recipient_uuid: resultUUID,
@@ -25,6 +27,7 @@ const AddFriendButton = ({ resultUUID }) => {
         </Text>
       ) : (
         <TouchableOpacity
+          disabled={disable}
           style={styles.addFriendButton}
           onPress={() => {
             sendFriendRequest();
