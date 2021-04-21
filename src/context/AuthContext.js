@@ -20,7 +20,6 @@ const authReducer = (state, action) => {
   }
 };
 
-// Post signup data and navigate to login screen
 const signup = (dispatch) => async ({
   username,
   email,
@@ -47,7 +46,6 @@ const signup = (dispatch) => async ({
   } catch (error) {
     let errorStr = "";
 
-    // Concatenate error messages for displaying
     for (const prop in error.response.data) {
       errorStr += `${prop} - ${error.response.data[prop][0]}\n`;
     }
@@ -56,7 +54,6 @@ const signup = (dispatch) => async ({
   }
 };
 
-// Post login data then set token
 const login = (dispatch) => async ({ username, password }) => {
   try {
     const response = await thimbleApi.post("/u/login", {

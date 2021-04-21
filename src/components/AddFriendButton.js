@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import thimbleApi from "../api/thimble";
 
-const AddFriendButton = ({ resultUUID }) => {
+const AddFriendButton = ({ friendUUID, friends, pending }) => {
   const [pressed, setPressed] = useState(false);
   const [disable, setDisable] = useState(false);
 
@@ -11,7 +11,7 @@ const AddFriendButton = ({ resultUUID }) => {
     setDisable(true);
     try {
       await thimbleApi.post("n/friend-request", {
-        recipient_uuid: resultUUID,
+        recipient_uuid: friendUUID,
         notification_type: 1,
         text: "",
       });
@@ -21,20 +21,26 @@ const AddFriendButton = ({ resultUUID }) => {
 
   return (
     <View>
-      {pressed ? (
-        <Text style={styles.pending}>
-          Sent <FontAwesome name="check" size={17} />
-        </Text>
+      {friends ? null : pending ? (
+        <Text style={styles.pending}>Pending</Text>
       ) : (
-        <TouchableOpacity
-          disabled={disable}
-          style={styles.addFriendButton}
-          onPress={() => {
-            sendFriendRequest();
-          }}
-        >
-          <Ionicons name="person-add-outline" size={23} color="#fff" />
-        </TouchableOpacity>
+        <View>
+          {pressed ? (
+            <Text style={styles.pending}>
+              Sent <FontAwesome name="check" size={17} />
+            </Text>
+          ) : (
+            <TouchableOpacity
+              disabled={disable}
+              style={styles.addFriendButton}
+              onPress={() => {
+                sendFriendRequest();
+              }}
+            >
+              <Ionicons name="person-add-outline" size={23} color="#fff" />
+            </TouchableOpacity>
+          )}
+        </View>
       )}
     </View>
   );
@@ -44,7 +50,7 @@ const styles = StyleSheet.create({
   addFriendButton: {
     alignSelf: "flex-end",
     borderRadius: 3,
-    backgroundColor: "#FF878A",
+    backgroundColor: "#ff878a",
     paddingHorizontal: 10,
     paddingVertical: 5,
     marginRight: 15,
@@ -53,7 +59,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     marginRight: 10,
     fontWeight: "bold",
-    color: "#FF878A",
+    color: "#ff878a",
     fontSize: 15,
   },
 });
