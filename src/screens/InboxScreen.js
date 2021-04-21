@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, FlatList } from "react-native";
 import Notification from "../components/Notification";
 import thimbleApi from "../api/thimble";
 
 const InboxScreen = () => {
   const [results, setResults] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchNotifications = async () => {
       try {
         const response = await thimbleApi.get("n/inbox");
@@ -17,22 +17,21 @@ const InboxScreen = () => {
     fetchNotifications();
   }, []);
 
-  const deleteFriendRequest = async (notif_uuid) => {
-    setResults(results.filter((item) => item.uuid !== notif_uuid));
-    try {
-      await thimbleApi.delete("n/friend-request", {
-        data: { notification_uuid: notif_uuid },
-      });
-    } catch (error) {}
-  };
-
-  const acceptFriendRequest = async (notif_uuid) => {
-    setResults(results.filter((item) => item.uuid !== notif_uuid));
-    try {
-      await thimbleApi.put("n/friend-request", {
-        notification_uuid: notif_uuid,
-      });
-    } catch (error) {}
+  const handleFriendRequest = async (notifUUID, accept) => {
+    setResults(results.filter((item) => item.uuid !== notifUUID));
+    if (accept) {
+      try {
+        await thimbleApi.put("n/friend-request", {
+          notification_uuid: notifUUID,
+        });
+      } catch (error) {}
+    } else {
+      try {
+        await thimbleApi.delete("n/friend-request", {
+          data: { notification_uuid: notifUUID },
+        });
+      } catch (error) {}
+    }
   };
 
   return (
@@ -43,8 +42,7 @@ const InboxScreen = () => {
         renderItem={({ item }) => {
           return (
             <Notification
-              acceptRequest={acceptFriendRequest}
-              deleteRequest={deleteFriendRequest}
+              handleFriendRequest={handleFriendRequest}
               result={item}
             />
           );
@@ -53,7 +51,5 @@ const InboxScreen = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default InboxScreen;
