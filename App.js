@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -11,12 +11,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Context as AuthContext } from "./src/context/AuthContext";
 import LoadingScreen from "./src/screens/LoadingScreen";
 import SignupSuccessScreen from "./src/screens/SignupSuccessScreen";
+import NewGroupFlow from "./src/navigation/NewGroupFlow";
 
 const RootStack = createStackNavigator();
 const RootStackFlow = () => {
   const { state, setLoadingFalse, setToken } = useContext(AuthContext);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const checkForToken = async () => {
       let token;
       try {
@@ -55,6 +56,11 @@ const RootStackFlow = () => {
         <RootStack.Screen
           name="SignupSuccess"
           component={SignupSuccessScreen}
+          options={{ animationEnabled: true }}
+        />
+        <RootStack.Screen
+          name="NewGroup"
+          component={NewGroupFlow}
           options={{ animationEnabled: true }}
         />
       </RootStack.Navigator>

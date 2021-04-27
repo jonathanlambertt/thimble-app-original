@@ -19,7 +19,7 @@ const FeedFlowStack = ({ navigation }) => (
           <TouchableOpacity onPress={() => navigation.navigate("Inbox")}>
             <Feather
               name="inbox"
-              size={28}
+              size={27}
               color="black"
               style={{ marginRight: 20 }}
             />

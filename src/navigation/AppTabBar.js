@@ -33,7 +33,7 @@ const AppTabBar = () => {
         }}
       >
         <TabBar.Screen
-          name="Feed"
+          name="FeedTab"
           component={FeedFlow}
           options={{
             tabBarIcon: ({ color }) => (
@@ -42,7 +42,7 @@ const AppTabBar = () => {
           }}
         />
         <TabBar.Screen
-          name="Search"
+          name="SearchTab"
           component={SearchFlow}
           options={{
             tabBarIcon: ({ color }) => (
@@ -66,7 +66,7 @@ const AppTabBar = () => {
           })}
         />
         <TabBar.Screen
-          name="Groups"
+          name="GroupsTab"
           component={GroupsFlow}
           options={{
             tabBarIcon: ({ color }) => (
@@ -75,7 +75,7 @@ const AppTabBar = () => {
           }}
         />
         <TabBar.Screen
-          name="Profile"
+          name="ProfileTab"
           component={ProfileFlow}
           options={{
             tabBarIcon: ({ color }) => (
