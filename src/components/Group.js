@@ -17,8 +17,8 @@ const Group = ({ result }) => {
       {result.banner ? (
         <PhotoThumbnail
           uri={result.sender.profile_picture}
-          width={50}
-          height={50}
+          width={60}
+          height={60}
         />
       ) : (
         <PhotoThumbnail width={60} height={60} />

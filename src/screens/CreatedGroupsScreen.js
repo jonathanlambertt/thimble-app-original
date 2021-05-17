@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, FlatList } from "react-native";
+import { View, FlatList, TouchableOpacity } from "react-native";
 import thimbleApi from "../api/thimble";
 import Group from "../components/Group";
 
@@ -18,12 +18,20 @@ const CreatedGroupsScreen = ({ navigation }) => {
   }, [navigation]);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <FlatList
         data={results}
         keyExtractor={(result) => result.uuid}
         renderItem={({ item }) => {
-          return <Group result={item} />;
+          return (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("GroupDetail", { group: item })
+              }
+            >
+              <Group result={item} />
+            </TouchableOpacity>
+          );
         }}
       />
     </View>

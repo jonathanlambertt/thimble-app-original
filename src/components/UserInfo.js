@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
   userTextContainer: {
     alignSelf: "center",
-    marginLeft: 10,
+    marginLeft: 11,
   },
   username: {
     fontSize: 14,

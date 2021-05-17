@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
 import PhotoThumbnail from "../components/PhotoThumbnail";
 
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   },
   userTextContainer: {
     alignSelf: "center",
-    marginLeft: 10,
+    marginLeft: 11,
     flexShrink: 1,
     flexDirection: "row",
   },
