@@ -16,7 +16,7 @@ const GroupsScreen = () => {
         },
         labelStyle: {
           fontSize: 14,
-          fontWeight: "500",
+          fontWeight: "bold",
           textTransform: "none",
         },
       }}

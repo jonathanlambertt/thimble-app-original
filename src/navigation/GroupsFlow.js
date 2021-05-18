@@ -53,11 +53,7 @@ const GroupsFlowStack = ({ navigation }) => (
           <TouchableOpacity onPress={() => navigation.navigate("Groups")}>
             <View style={{ flex: 1, flexDirection: "row" }}>
               <View style={{ alignSelf: "center" }}>
-                <Ionicons
-                  name="ios-chevron-back-sharp"
-                  size={33}
-                  color="#a6a3ff"
-                />
+                <Feather name="chevron-left" size={33} color="#a6a3ff" />
               </View>
               <View style={{ alignSelf: "center" }}>
                 <PhotoThumbnail

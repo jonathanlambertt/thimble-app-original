@@ -8,7 +8,7 @@ const PlaceholderScreen = () => {
   return <View style={{ flex: 1, backgroundColor: "#fff" }}></View>;
 };
 
-const GroupDetailScreen = () => {
+const GroupDetailScreen = ({ route }) => {
   return (
     <Tab.Navigator
       swipeEnabled={false}
@@ -27,7 +27,10 @@ const GroupDetailScreen = () => {
       }}
     >
       <Tab.Screen name="Posts" component={PlaceholderScreen} />
-      <Tab.Screen name="Members" component={GroupMembersScreen} />
+      <Tab.Screen
+        name="Members"
+        children={() => <GroupMembersScreen group={route.params.group} />}
+      />
     </Tab.Navigator>
   );
 };

@@ -1,11 +1,12 @@
 import React from "react";
+import { TouchableOpacity } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import NewGroupScreen from "../screens/NewGroupScreen";
-import { Button } from "react-native-elements";
+import { Feather } from "@expo/vector-icons";
 
 const NewGroupFlow = createStackNavigator();
 
-const NewGroupFlowStack = () => (
+const NewGroupFlowStack = ({ navigation }) => (
   <NewGroupFlow.Navigator>
     <NewGroupFlow.Screen
       name="Create Group"
@@ -13,6 +14,16 @@ const NewGroupFlowStack = () => (
       options={{
         headerShown: true,
         headerBackTitle: "Cancel",
+        headerLeft: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("Groups")}>
+            <Feather
+              name="x"
+              size={26}
+              color="black"
+              style={{ marginLeft: 17 }}
+            />
+          </TouchableOpacity>
+        ),
       }}
     />
   </NewGroupFlow.Navigator>
