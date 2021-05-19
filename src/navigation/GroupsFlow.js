@@ -32,7 +32,7 @@ const GroupsFlowStack = ({ navigation }) => (
       options={({ route }) => ({
         title: route.params.group.name,
         headerTitleAlign: "left",
-        headerStyle: { shadowColor: "#fff" },
+        headerStyle: { shadowColor: "#fff", elevation: 0 },
         headerRight: () => (
           <TouchableOpacity
             onPress={() =>

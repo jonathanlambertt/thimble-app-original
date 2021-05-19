@@ -37,7 +37,7 @@ const EditGroupMembersScreen = ({ route }) => {
 
   const fetchCurrentMembers = async () => {
     try {
-      const response = await thimbleApi.get(`g/${groupUUID}/members`);
+      const response = await thimbleApi.get(`g/${groupUUID}/members/removable`);
       setCurrentMembers(response.data);
     } catch (error) {}
   };

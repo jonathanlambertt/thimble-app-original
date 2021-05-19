@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import { View, FlatList } from "react-native";
+import { View, FlatList, Text } from "react-native";
 import thimbleApi from "../api/thimble";
 import UserInfo from "../components/UserInfo";
 
@@ -10,7 +10,7 @@ const GroupMembersScreen = ({ group }) => {
     React.useCallback(() => {
       const fetchMembers = async () => {
         try {
-          const response = await thimbleApi.get(`g/${group.uuid}/members`);
+          const response = await thimbleApi.get(`g/${group.uuid}/members/all`);
           setResults(response.data);
         } catch (e) {}
       };
