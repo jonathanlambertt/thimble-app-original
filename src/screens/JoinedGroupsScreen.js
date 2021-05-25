@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, FlatList, TouchableOpacity } from "react-native";
 import thimbleApi from "../api/thimble";
 import Group from "../components/Group";
+import { Context as GroupContext } from "../context/GroupContext";
 
 const JoinedGroupsScreen = ({ navigation }) => {
   const [results, setResults] = useState([]);
+  const { setGroup } = useContext(GroupContext);
 
   useEffect(() => {
     const fetchGroups = navigation.addListener("focus", async () => {
@@ -24,9 +26,10 @@ const JoinedGroupsScreen = ({ navigation }) => {
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("GroupDetail", { group: item })
-              }
+              onPress={() => {
+                setGroup({ group: item });
+                navigation.navigate("GroupDetail", { group: item });
+              }}
             >
               <Group result={item} />
             </TouchableOpacity>

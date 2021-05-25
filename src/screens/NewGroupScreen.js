@@ -6,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   TextInput,
+  ScrollView,
 } from "react-native";
 import { Input, Button } from "react-native-elements";
 import thimbleApi from "../api/thimble";
@@ -64,7 +65,7 @@ const NewGroupScreen = ({ navigation }) => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={{ flex: 1, paddingTop: 15, backgroundColor: "#fff" }}>
+      <ScrollView style={{ flex: 1, paddingTop: 15, backgroundColor: "#fff" }}>
         <Input
           value={name}
           onChangeText={setName}
@@ -91,7 +92,7 @@ const NewGroupScreen = ({ navigation }) => {
             {errorMessage}
           </Text>
         ) : null}
-      </View>
+      </ScrollView>
     </TouchableWithoutFeedback>
   );
 };

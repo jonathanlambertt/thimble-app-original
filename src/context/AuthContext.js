@@ -20,55 +20,54 @@ const authReducer = (state, action) => {
   }
 };
 
-const signup = (dispatch) => async ({
-  username,
-  email,
-  password,
-  full_name,
-}) => {
-  try {
-    if (full_name) {
-      await thimbleApi.post("/u/", {
+const signup =
+  (dispatch) =>
+  async ({ username, email, password, full_name }) => {
+    try {
+      if (full_name) {
+        await thimbleApi.post("/u/", {
+          username,
+          email,
+          password,
+          full_name,
+        });
+      } else {
+        await thimbleApi.post("/u/", {
+          username,
+          email,
+          password,
+        });
+      }
+
+      RootNavigation.navigate("SignupSuccess");
+    } catch (error) {
+      let errorStr = "";
+
+      for (const prop in error.response.data) {
+        errorStr += `${prop} - ${error.response.data[prop][0]}\n`;
+      }
+
+      dispatch({ type: "add_error", payload: errorStr });
+    }
+  };
+
+const login =
+  (dispatch) =>
+  async ({ username, password }) => {
+    try {
+      const response = await thimbleApi.post("/u/login", {
         username,
-        email,
         password,
-        full_name,
       });
-    } else {
-      await thimbleApi.post("/u/", {
-        username,
-        email,
-        password,
+      await AsyncStorage.setItem("token", response.data.token);
+      dispatch({ type: "login", payload: response.data.token });
+    } catch (error) {
+      dispatch({
+        type: "add_error",
+        payload: "Please ensure your username and password are correct.",
       });
     }
-
-    RootNavigation.navigate("SignupSuccess");
-  } catch (error) {
-    let errorStr = "";
-
-    for (const prop in error.response.data) {
-      errorStr += `${prop} - ${error.response.data[prop][0]}\n`;
-    }
-
-    dispatch({ type: "add_error", payload: errorStr });
-  }
-};
-
-const login = (dispatch) => async ({ username, password }) => {
-  try {
-    const response = await thimbleApi.post("/u/login", {
-      username,
-      password,
-    });
-    await AsyncStorage.setItem("token", response.data.token);
-    dispatch({ type: "login", payload: response.data.token });
-  } catch (error) {
-    dispatch({
-      type: "add_error",
-      payload: "Please ensure your username and password are correct.",
-    });
-  }
-};
+  };
 
 const logout = (dispatch) => async () => {
   try {

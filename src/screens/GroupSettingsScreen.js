@@ -1,17 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ScrollView, Alert } from "react-native";
 import { ListItem } from "react-native-elements";
 import { Feather } from "@expo/vector-icons";
 import thimbleApi from "../api/thimble";
+import { Context as GroupContext } from "../context/GroupContext";
 
-const GroupSettingsScreen = ({ route, navigation }) => {
+const GroupSettingsScreen = ({ navigation }) => {
   const [userStatus, setUserStatus] = useState("");
-  const groupUUID = route.params.group.uuid;
+  const { state } = useContext(GroupContext);
 
   useEffect(() => {
     const checkUserStatus = async () => {
       try {
-        const response = await thimbleApi.get(`g/${groupUUID}/user-status`);
+        const response = await thimbleApi.get(
+          `g/${state.group.uuid}/user-status`
+        );
         setUserStatus(response.data.message);
       } catch (error) {}
     };
@@ -21,7 +24,7 @@ const GroupSettingsScreen = ({ route, navigation }) => {
 
   const leaveGroup = async () => {
     try {
-      await thimbleApi.put(`g/${groupUUID}/leave`);
+      await thimbleApi.put(`g/${state.group.uuid}/leave`);
       navigation.navigate("Groups");
     } catch (error) {}
   };
@@ -54,11 +57,7 @@ const GroupSettingsScreen = ({ route, navigation }) => {
           <>
             <ListItem
               style={{ borderTopRightRadius: 4, borderTopLeftRadius: 4 }}
-              onPress={() =>
-                navigation.navigate("AddFriendsItem", {
-                  group: route.params.group,
-                })
-              }
+              onPress={() => navigation.navigate("AddFriendsItem")}
               containerStyle={{
                 borderTopRightRadius: 4,
                 borderTopLeftRadius: 4,

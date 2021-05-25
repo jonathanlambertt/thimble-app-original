@@ -1,13 +1,15 @@
 import React from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 
-const GroupPostsScreen = () => {
+const GroupPostsScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <FlatList
         ListHeaderComponent={
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("GroupNewPostFlow")}
+          >
             <View
               style={{
                 flex: 1,
@@ -21,11 +23,11 @@ const GroupPostsScreen = () => {
               }}
             >
               <View style={{ flexDirection: "row" }}>
-                <Ionicons name="paper-plane-outline" size={24} color="black" />
+                <FontAwesome5 name="paper-plane" size={20} color="black" />
                 <Text
                   style={{
                     alignSelf: "center",
-                    marginLeft: 5,
+                    marginLeft: 7,
                     fontWeight: "500",
                   }}
                 >

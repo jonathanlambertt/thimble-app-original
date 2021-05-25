@@ -35,11 +35,7 @@ const GroupsFlowStack = ({ navigation }) => (
         headerStyle: { shadowColor: "#fff", elevation: 0 },
         headerRight: () => (
           <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("GroupSettings", {
-                group: route.params.group,
-              })
-            }
+            onPress={() => navigation.navigate("GroupSettings")}
           >
             <Ionicons
               name="settings-outline"

@@ -12,6 +12,8 @@ import { Context as AuthContext } from "./src/context/AuthContext";
 import LoadingScreen from "./src/screens/LoadingScreen";
 import SignupSuccessScreen from "./src/screens/SignupSuccessScreen";
 import NewGroupFlow from "./src/navigation/NewGroupFlow";
+import GroupNewPostFlow from "./src/navigation/GroupNewPostFlow";
+import { Provider as GroupProvider } from "./src/context/GroupContext";
 
 const RootStack = createStackNavigator();
 const RootStackFlow = () => {
@@ -63,6 +65,11 @@ const RootStackFlow = () => {
           component={NewGroupFlow}
           options={{ animationEnabled: true }}
         />
+        <RootStack.Screen
+          name="GroupNewPostFlow"
+          component={GroupNewPostFlow}
+          options={{ animationEnabled: true }}
+        />
       </RootStack.Navigator>
     );
   }
@@ -71,10 +78,12 @@ const RootStackFlow = () => {
 export default function App() {
   return (
     <AuthProvider>
-      <NavigationContainer ref={navigationRef}>
-        <StatusBar style="auto" />
-        <RootStackFlow />
-      </NavigationContainer>
+      <GroupProvider>
+        <NavigationContainer ref={navigationRef}>
+          <StatusBar style="auto" />
+          <RootStackFlow />
+        </NavigationContainer>
+      </GroupProvider>
     </AuthProvider>
   );
 }

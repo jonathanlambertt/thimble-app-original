@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { View, FlatList, Text } from "react-native";
 import thimbleApi from "../api/thimble";
 import UserInfo from "../components/UserInfo";
+import { Context as GroupContext } from "../context/GroupContext";
 
-const GroupMembersScreen = ({ group }) => {
+const GroupMembersScreen = () => {
   const [results, setResults] = useState([]);
+  const { state } = useContext(GroupContext);
+
   useFocusEffect(
     React.useCallback(() => {
       const fetchMembers = async () => {
         try {
-          const response = await thimbleApi.get(`g/${group.uuid}/members/all`);
+          const response = await thimbleApi.get(
+            `g/${state.group.uuid}/members/all`
+          );
           setResults(response.data);
         } catch (e) {}
       };

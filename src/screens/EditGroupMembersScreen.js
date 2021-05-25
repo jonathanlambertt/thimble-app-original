@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -9,11 +9,12 @@ import {
 import thimbleApi from "../api/thimble";
 import UserInfo from "../components/UserInfo";
 import { Entypo } from "@expo/vector-icons";
+import { Context as GroupContext } from "../context/GroupContext";
 
-const EditGroupMembersScreen = ({ route }) => {
+const EditGroupMembersScreen = () => {
   const [currentMembers, setCurrentMembers] = useState([]);
   const [potentialMembers, setPotentialMembers] = useState([]);
-  const groupUUID = route.params.group.uuid;
+  const { state } = useContext(GroupContext);
 
   const addOrRemoveMember = async (userUUID, action) => {
     if (action === "add") {
@@ -21,7 +22,7 @@ const EditGroupMembersScreen = ({ route }) => {
         potentialMembers.filter((item) => item.uuid !== userUUID)
       );
       try {
-        await thimbleApi.put(`g/${groupUUID}/add/${userUUID}`);
+        await thimbleApi.put(`g/${state.group.uuid}/add/${userUUID}`);
       } catch (error) {}
       fetchCurrentMembers();
     } else {
@@ -29,7 +30,7 @@ const EditGroupMembersScreen = ({ route }) => {
         currentMembers.filter((item) => item.uuid !== userUUID)
       );
       try {
-        await thimbleApi.put(`g/${groupUUID}/remove/${userUUID}`);
+        await thimbleApi.put(`g/${state.group.uuid}/remove/${userUUID}`);
       } catch (error) {}
       fetchPotentialMembers();
     }
@@ -37,14 +38,18 @@ const EditGroupMembersScreen = ({ route }) => {
 
   const fetchCurrentMembers = async () => {
     try {
-      const response = await thimbleApi.get(`g/${groupUUID}/members/removable`);
+      const response = await thimbleApi.get(
+        `g/${state.group.uuid}/members/removable`
+      );
       setCurrentMembers(response.data);
     } catch (error) {}
   };
 
   const fetchPotentialMembers = async () => {
     try {
-      const response = await thimbleApi.get(`g/${groupUUID}/potential-members`);
+      const response = await thimbleApi.get(
+        `g/${state.group.uuid}/potential-members`
+      );
       setPotentialMembers(response.data);
     } catch (error) {}
   };
