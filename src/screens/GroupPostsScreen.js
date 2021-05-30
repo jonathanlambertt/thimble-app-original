@@ -1,42 +1,37 @@
-import React from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
-import { FontAwesome5 } from "@expo/vector-icons";
+import React, { useState, useContext } from "react";
+import { View, FlatList } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
+import { Context as GroupContext } from "../context/GroupContext";
+import thimbleApi from "../api/thimble";
+import Post from "../components/Post";
 
-const GroupPostsScreen = ({ navigation }) => {
+const GroupPostsScreen = () => {
+  const [results, setResults] = useState([]);
+  const { state } = useContext(GroupContext);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const fetchPosts = async () => {
+        try {
+          const response = await thimbleApi.get(`g/${state.group.uuid}/posts`);
+          setResults(response.data);
+        } catch (error) {}
+      };
+
+      fetchPosts();
+
+      return () => {};
+    }, [])
+  );
+
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <FlatList
-        ListHeaderComponent={
-          <TouchableOpacity
-            onPress={() => navigation.navigate("GroupNewPostFlow")}
-          >
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                borderWidth: 1.5,
-                marginHorizontal: 5,
-                marginVertical: 5,
-                padding: 10,
-                borderRadius: 4,
-                borderColor: "#cecece",
-              }}
-            >
-              <View style={{ flexDirection: "row" }}>
-                <FontAwesome5 name="paper-plane" size={20} color="black" />
-                <Text
-                  style={{
-                    alignSelf: "center",
-                    marginLeft: 7,
-                    fontWeight: "500",
-                  }}
-                >
-                  Post in group
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-        }
+        data={results}
+        keyExtractor={(result) => result.uuid}
+        renderItem={({ item }) => {
+          return <Post post={item} />;
+        }}
       />
     </View>
   );

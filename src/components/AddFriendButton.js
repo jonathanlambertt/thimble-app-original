@@ -10,7 +10,7 @@ const AddFriendButton = ({ friendUUID, friends, pending }) => {
   const sendFriendRequest = async () => {
     setDisable(true);
     try {
-      await thimbleApi.post("n/friend-request", {
+      await thimbleApi.post("n/send", {
         recipient_uuid: friendUUID,
         notification_type: 1,
         text: "",

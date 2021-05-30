@@ -10,6 +10,8 @@ const GroupNewPostScreen = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [link, setLink] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [disable, setDisable] = useState(false);
   const { state } = useContext(GroupContext);
 
   const textOption = () => (
@@ -112,44 +114,99 @@ const GroupNewPostScreen = ({ navigation }) => {
             marginRight: 10,
             color: "#A6A3FF",
           }}
+          disabled={disable}
           title="Post"
           type="clear"
-          onPress={() => sendPost()}
+          onPress={() => {
+            sendPost();
+            setDisable(true);
+          }}
         />
       ),
     });
-  }, [navigation, selectedIndex, title, text, link]);
+  }, [navigation, selectedIndex, title, text, link, disable]);
 
   const sendPost = async () => {
     switch (selectedIndex) {
       case 0:
         if (title) {
           try {
-            const response = await thimbleApi.post("p/", {
-              post_type: selectedIndex,
+            await thimbleApi.post("p/", {
+              post_type: String(selectedIndex),
               title: title,
               text: text,
               group: state.group.uuid,
             });
-            console.log(response.data);
+            navigation.navigate("GroupDetail");
           } catch (error) {
-            console.log(error.response.data);
+            let errorStr = "";
+
+            for (const prop in error.response.data) {
+              errorStr += `${prop} - ${error.response.data[prop][0]}\n`;
+            }
+
+            setErrorMessage(errorStr);
+            setDisable(false);
           }
         } else {
           try {
-            const response = await thimbleApi.post("p/", {
-              post_type: selectedIndex,
+            await thimbleApi.post("p/", {
+              post_type: String(selectedIndex),
               text: text,
               group: state.group.uuid,
             });
-            console.log(response.data);
+            navigation.navigate("GroupDetail");
           } catch (error) {
-            console.log(error.response.data);
+            let errorStr = "";
+
+            for (const prop in error.response.data) {
+              errorStr += `${prop} - ${error.response.data[prop][0]}\n`;
+            }
+
+            setErrorMessage(errorStr);
+            setDisable(false);
           }
         }
         return;
       case 1:
-        console.log("link");
+        if (title) {
+          try {
+            await thimbleApi.post("p/", {
+              post_type: String(selectedIndex),
+              title: title,
+              link: link,
+              group: state.group.uuid,
+            });
+            navigation.navigate("GroupDetail");
+          } catch (error) {
+            let errorStr = "";
+
+            for (const prop in error.response.data) {
+              errorStr += `${prop} - ${error.response.data[prop][0]}\n`;
+            }
+
+            setErrorMessage(errorStr);
+            setDisable(false);
+          }
+        } else {
+          try {
+            await thimbleApi.post("p/", {
+              post_type: String(selectedIndex),
+              link: link,
+              group: state.group.uuid,
+            });
+            navigation.navigate("GroupDetail");
+          } catch (error) {
+            let errorStr = "";
+
+            for (const prop in error.response.data) {
+              errorStr += `${prop} - ${error.response.data[prop][0]}\n`;
+            }
+
+            setErrorMessage(errorStr);
+            setDisable(false);
+          }
+        }
         return;
       default:
         return;
@@ -198,6 +255,17 @@ const GroupNewPostScreen = ({ navigation }) => {
         />
       ) : selectedIndex === 2 ? (
         <Text>photo</Text>
+      ) : null}
+      {errorMessage ? (
+        <Text
+          style={{
+            textAlign: "center",
+            marginTop: 5,
+            color: "red",
+          }}
+        >
+          {errorMessage}
+        </Text>
       ) : null}
     </ScrollView>
   );

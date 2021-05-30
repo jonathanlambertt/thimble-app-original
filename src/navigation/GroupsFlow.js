@@ -2,7 +2,7 @@ import React from "react";
 import { TouchableOpacity, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import GroupsScreen from "../screens/GroupsScreen";
-import { Feather, Ionicons } from "@expo/vector-icons";
+import { Feather, Ionicons, FontAwesome5 } from "@expo/vector-icons";
 import GroupDetailScreen from "../screens/GroupDetailScreen";
 import GroupSettingsScreen from "../screens/GroupSettingsScreen";
 import PhotoThumbnail from "../components/PhotoThumbnail";
@@ -34,16 +34,28 @@ const GroupsFlowStack = ({ navigation }) => (
         headerTitleAlign: "left",
         headerStyle: { shadowColor: "#fff", elevation: 0 },
         headerRight: () => (
-          <TouchableOpacity
-            onPress={() => navigation.navigate("GroupSettings")}
-          >
-            <Ionicons
-              name="settings-outline"
-              size={26}
-              color="black"
-              style={{ marginRight: 20 }}
-            />
-          </TouchableOpacity>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("GroupSettings")}
+            >
+              <Ionicons
+                name="settings-outline"
+                size={26}
+                color="black"
+                style={{ marginRight: 15 }}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("GroupNewPostFlow")}
+            >
+              <FontAwesome5
+                name="paper-plane"
+                size={20}
+                color="black"
+                style={{ marginRight: 15 }}
+              />
+            </TouchableOpacity>
+          </View>
         ),
         headerLeft: () => (
           <TouchableOpacity onPress={() => navigation.navigate("Groups")}>

@@ -32,7 +32,11 @@ const GroupDetailScreen = () => {
             indicatorStyle: {
               width: 0,
             },
-            style: { shadowColor: "#fff" },
+            style: {
+              shadowColor: "#fff",
+              borderBottomWidth: 1,
+              borderColor: "#cecece",
+            },
             labelStyle: {
               fontSize: 15,
               fontWeight: "bold",

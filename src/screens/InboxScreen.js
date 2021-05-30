@@ -21,15 +21,11 @@ const InboxScreen = () => {
     setResults(results.filter((item) => item.uuid !== notifUUID));
     if (accept) {
       try {
-        await thimbleApi.put("n/friend-request", {
-          notification_uuid: notifUUID,
-        });
+        await thimbleApi.put(`n/friend-request/${notifUUID}`);
       } catch (error) {}
     } else {
       try {
-        await thimbleApi.delete("n/friend-request", {
-          data: { notification_uuid: notifUUID },
-        });
+        await thimbleApi.delete(`n/friend-request/${notifUUID}`);
       } catch (error) {}
     }
   };
