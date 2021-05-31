@@ -1,15 +1,17 @@
 import React, { useState, useContext } from "react";
-import { View, Text, ScrollView, TextInput } from "react-native";
+import { View, Text, ScrollView, TextInput, Image } from "react-native";
 import { ButtonGroup, Input, Button } from "react-native-elements";
 import { FontAwesome5, Feather, Entypo } from "@expo/vector-icons";
 import { Context as GroupContext } from "../context/GroupContext";
 import thimbleApi from "../api/thimble";
+import * as ImagePicker from "expo-image-picker";
 
 const GroupNewPostScreen = ({ navigation }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [link, setLink] = useState("");
+  const [image, setImage] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [disable, setDisable] = useState(false);
   const { state } = useContext(GroupContext);
@@ -213,6 +215,19 @@ const GroupNewPostScreen = ({ navigation }) => {
     }
   };
 
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
   return (
     <ScrollView style={{ backgroundColor: "#fff" }}>
       <TextInput
@@ -254,7 +269,32 @@ const GroupNewPostScreen = ({ navigation }) => {
           placeholder="Paste URL here"
         />
       ) : selectedIndex === 2 ? (
-        <Text>photo</Text>
+        <View>
+          <Button
+            titleStyle={{
+              fontSize: 15,
+              fontWeight: "bold",
+              marginRight: 10,
+              color: "#A6A3FF",
+            }}
+            title="Choose a Photo"
+            type="clear"
+            onPress={pickImage}
+          />
+          {image && (
+            <Image
+              source={{ uri: image }}
+              style={{
+                alignSelf: "center",
+                width: 250,
+                height: 250,
+                borderWidth: 1,
+                borderColor: "#d3d3d3",
+                borderRadius: 4,
+              }}
+            />
+          )}
+        </View>
       ) : null}
       {errorMessage ? (
         <Text

@@ -8,6 +8,7 @@ import GroupsFlow from "./GroupsFlow";
 import ProfileFlow from "./ProfileFlow";
 
 const TabBar = createBottomTabNavigator();
+const tabIconSize = 32;
 const PlaceholderScreen = () => {};
 
 const Icon = createIconSetFromIcoMoon(
@@ -37,7 +38,7 @@ const AppTabBar = () => {
           component={FeedFlow}
           options={{
             tabBarIcon: ({ color }) => (
-              <Icon name="home" color={color} size={33} />
+              <Icon name="home" color={color} size={tabIconSize} />
             ),
           }}
         />
@@ -46,7 +47,7 @@ const AppTabBar = () => {
           component={SearchFlow}
           options={{
             tabBarIcon: ({ color }) => (
-              <Icon name="search" color={color} size={33} />
+              <Icon name="search" color={color} size={tabIconSize} />
             ),
           }}
         />
@@ -70,7 +71,7 @@ const AppTabBar = () => {
           component={GroupsFlow}
           options={{
             tabBarIcon: ({ color }) => (
-              <Icon name="groups" color={color} size={33} />
+              <Icon name="groups" color={color} size={tabIconSize} />
             ),
           }}
         />
@@ -79,7 +80,7 @@ const AppTabBar = () => {
           component={ProfileFlow}
           options={{
             tabBarIcon: ({ color }) => (
-              <Icon name="profile" color={color} size={33} />
+              <Icon name="profile" color={color} size={tabIconSize} />
             ),
           }}
         />
