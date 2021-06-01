@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { TouchableOpacity } from "react-native";
 import ProfileScreen from "../screens/ProfileScreen";
 import { Ionicons } from "@expo/vector-icons";
+import ProfileSettingsScreen from "../screens/ProfileSettingsScreen";
 
 const ProfileFlow = createStackNavigator();
 
@@ -11,7 +12,9 @@ const ProfileFlowStack = ({ navigation }) => (
     <ProfileFlow.Screen
       options={{
         headerRight: () => (
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("ProfileSettings")}
+          >
             <Ionicons
               name="settings-outline"
               size={26}
@@ -23,6 +26,14 @@ const ProfileFlowStack = ({ navigation }) => (
       }}
       name="Profile"
       component={ProfileScreen}
+    />
+    <ProfileFlow.Screen
+      options={{
+        title: "Settings",
+        headerBackTitleVisible: false,
+      }}
+      name="ProfileSettings"
+      component={ProfileSettingsScreen}
     />
   </ProfileFlow.Navigator>
 );
