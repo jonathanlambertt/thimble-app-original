@@ -51,24 +51,28 @@ const SignupScreen = ({ navigation }) => {
                 value={email}
                 setValue={setEmail}
                 isSecure={false}
+                username={false}
               />
               <FormField
                 placeholder="Full Name (optional)"
                 value={full_name}
                 setValue={setFullName}
                 isSecure={false}
+                username={false}
               />
               <FormField
                 placeholder="Username"
                 value={username}
                 setValue={setUsername}
                 isSecure={false}
+                username={true}
               />
               <FormField
                 placeholder="Password"
                 value={password}
                 setValue={setPassword}
                 isSecure={true}
+                username={false}
               />
               <Text style={styles.terms}>
                 By signing up you agree to the Terms of Service.

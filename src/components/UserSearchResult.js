@@ -6,11 +6,18 @@ import UserInfo from "./UserInfo";
 const UserSearchResult = ({ result }) => {
   return (
     <View style={styles.container}>
-      <UserInfo
-        uri={result.profile.profile_picture}
-        username={result.profile.user}
-        fullname={result.profile.full_name}
-      />
+      {result.profile.profile_picture ? (
+        <UserInfo
+          uri={result.profile.profile_picture}
+          username={result.profile.user}
+          fullname={result.profile.full_name}
+        />
+      ) : (
+        <UserInfo
+          username={result.profile.user}
+          fullname={result.profile.full_name}
+        />
+      )}
       <View style={styles.cardEndContainer}>
         <AddFriendButton
           friendUUID={result.profile.uuid}

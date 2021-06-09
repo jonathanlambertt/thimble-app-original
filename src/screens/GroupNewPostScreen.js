@@ -1,10 +1,18 @@
 import React, { useState, useContext } from "react";
-import { View, Text, ScrollView, TextInput, Image } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TextInput,
+  Image,
+  Platform,
+} from "react-native";
 import { ButtonGroup, Input, Button } from "react-native-elements";
 import { FontAwesome5, Feather, Entypo } from "@expo/vector-icons";
 import { Context as GroupContext } from "../context/GroupContext";
 import thimbleApi from "../api/thimble";
 import * as ImagePicker from "expo-image-picker";
+import FormData from "form-data";
 
 const GroupNewPostScreen = ({ navigation }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -120,15 +128,15 @@ const GroupNewPostScreen = ({ navigation }) => {
           title="Post"
           type="clear"
           onPress={() => {
-            sendPost();
+            sendPost(image);
             setDisable(true);
           }}
         />
       ),
     });
-  }, [navigation, selectedIndex, title, text, link, disable]);
+  }, [navigation, selectedIndex, title, text, link, disable, image]);
 
-  const sendPost = async () => {
+  const sendPost = async (image) => {
     switch (selectedIndex) {
       case 0:
         if (title) {
@@ -210,6 +218,64 @@ const GroupNewPostScreen = ({ navigation }) => {
           }
         }
         return;
+      case 2:
+        let data = new FormData();
+        {
+          image
+            ? data.append("photo", {
+                uri:
+                  Platform.OS === "android"
+                    ? image
+                    : image.replace("file://", ""),
+                name: "image.jpeg",
+                type: "image/jpg",
+              })
+            : null;
+        }
+        data.append("post_type", String(selectedIndex));
+        data.append("group", state.group.uuid);
+
+        if (title) {
+          data.append("title", title);
+          try {
+            await thimbleApi.post("p/", data, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                Accept: "application/json",
+              },
+            });
+            navigation.navigate("GroupDetail");
+          } catch (error) {
+            let errorStr = "";
+
+            for (const prop in error.response.data) {
+              errorStr += `${prop} - ${error.response.data[prop][0]}\n`;
+            }
+
+            setErrorMessage(errorStr);
+            setDisable(false);
+          }
+        } else {
+          try {
+            await thimbleApi.post("p/", data, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                Accept: "application/json",
+              },
+            });
+            navigation.navigate("GroupDetail");
+          } catch (error) {
+            let errorStr = "";
+
+            for (const prop in error.response.data) {
+              errorStr += `${prop} - ${error.response.data[prop][0]}\n`;
+            }
+
+            setErrorMessage(errorStr);
+            setDisable(false);
+          }
+        }
+        return;
       default:
         return;
     }
@@ -220,7 +286,7 @@ const GroupNewPostScreen = ({ navigation }) => {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [1, 1],
-      quality: 1,
+      quality: 0.5,
     });
 
     if (!result.cancelled) {

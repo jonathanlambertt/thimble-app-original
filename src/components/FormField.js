@@ -1,20 +1,38 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 import { Input } from "react-native-elements";
 
-const FormField = ({ placeholder, value, setValue, isSecure }) => {
-  return (
-    <Input
-      value={value}
-      onChangeText={setValue}
-      secureTextEntry={isSecure}
-      autoCapitalize="none"
-      autoCorrect={false}
-      placeholder={placeholder}
-      inputStyle={styles.inputStyle}
-      inputContainerStyle={{ borderBottomWidth: 0 }}
-    />
-  );
+const FormField = ({ placeholder, value, setValue, isSecure, username }) => {
+  if (username) {
+    return (
+      <Input
+        value={value}
+        onChangeText={setValue}
+        secureTextEntry={isSecure}
+        autoCapitalize="none"
+        autoCorrect={false}
+        placeholder={placeholder}
+        inputStyle={styles.inputStyle}
+        inputContainerStyle={{ borderBottomWidth: 0 }}
+        keyboardType={
+          Platform.OS === "ios" ? "ascii-capable" : "visible-password"
+        }
+      />
+    );
+  } else {
+    return (
+      <Input
+        value={value}
+        onChangeText={setValue}
+        secureTextEntry={isSecure}
+        autoCapitalize="none"
+        autoCorrect={false}
+        placeholder={placeholder}
+        inputStyle={styles.inputStyle}
+        inputContainerStyle={{ borderBottomWidth: 0 }}
+      />
+    );
+  }
 };
 
 const styles = StyleSheet.create({

@@ -7,11 +7,16 @@ const FriendRequest = ({ result, handleFriendRequest }) => {
   return (
     <View style={styles.container}>
       <View style={styles.userInfoContainer}>
-        <PhotoThumbnail
-          uri={result.sender.profile_picture}
-          width={50}
-          height={50}
-        />
+        {result.sender.profile_picture ? (
+          <PhotoThumbnail
+            uri={result.sender.profile_picture}
+            width={50}
+            height={50}
+          />
+        ) : (
+          <PhotoThumbnail width={50} height={50} />
+        )}
+
         <View style={styles.userTextContainer}>
           <Text style={{ flex: 1, flexWrap: "wrap" }}>
             <Text style={styles.username}>{result.sender.user}</Text>

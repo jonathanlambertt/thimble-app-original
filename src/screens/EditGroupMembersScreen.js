@@ -78,11 +78,16 @@ const EditGroupMembersScreen = () => {
               flexDirection: "row",
             }}
           >
-            <UserInfo
-              uri={item.profile_picture}
-              username={item.user}
-              fullname={item.full_name}
-            />
+            {item.profile_picture ? (
+              <UserInfo
+                uri={item.profile_picture}
+                username={item.user}
+                fullname={item.full_name}
+              />
+            ) : (
+              <UserInfo username={item.user} fullname={item.full_name} />
+            )}
+
             <View style={{ alignSelf: "center" }}>
               {section.title === "Current Members" ? (
                 <TouchableOpacity

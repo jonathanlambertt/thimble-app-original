@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import PhotoThumbnail from "../components/PhotoThumbnail";
 import { LinkPreview } from "@flyerhq/react-native-link-preview";
 
@@ -7,11 +7,16 @@ const Post = ({ post }) => {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <PhotoThumbnail
-          uri={post.owner.profile_picture}
-          width={38}
-          height={38}
-        />
+        {post.owner.profile_picture ? (
+          <PhotoThumbnail
+            uri={post.owner.profile_picture}
+            width={38}
+            height={38}
+          />
+        ) : (
+          <PhotoThumbnail width={38} height={38} />
+        )}
+
         <View style={styles.headerTextContainer}>
           <Text style={{ flex: 1, flexWrap: "wrap" }}>
             <Text style={{ fontWeight: "700" }}>{post.owner.user}</Text>
@@ -49,6 +54,16 @@ const Post = ({ post }) => {
               borderRadius: 4,
             }}
             text={post.link}
+          />
+        ) : post.post_type === 2 ? (
+          <Image
+            style={{
+              aspectRatio: 1,
+              borderRadius: 3,
+              borderWidth: 0.5,
+              borderColor: "#d3d3d3",
+            }}
+            source={{ uri: post.photo }}
           />
         ) : null}
       </View>

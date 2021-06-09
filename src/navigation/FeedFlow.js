@@ -9,7 +9,7 @@ import LogoHeader from "../components/LogoHeader";
 const FeedFlow = createStackNavigator();
 
 const FeedFlowStack = ({ navigation }) => (
-  <FeedFlow.Navigator headerMode="screen">
+  <FeedFlow.Navigator>
     <FeedFlow.Screen
       name="Feed"
       component={FeedScreen}
