@@ -13,6 +13,7 @@ import { Context as GroupContext } from "../context/GroupContext";
 import thimbleApi from "../api/thimble";
 import * as ImagePicker from "expo-image-picker";
 import FormData from "form-data";
+import * as ImageManipulator from "expo-image-manipulator";
 
 const GroupNewPostScreen = ({ navigation }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -23,6 +24,7 @@ const GroupNewPostScreen = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [disable, setDisable] = useState(false);
   const { state } = useContext(GroupContext);
+  const baseWidth = 1080;
 
   const textOption = () => (
     <>
@@ -290,7 +292,20 @@ const GroupNewPostScreen = ({ navigation }) => {
     });
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      let scaleFactor = baseWidth / result.width;
+      let newHeight = result.height * scaleFactor;
+
+      await ImageManipulator.manipulateAsync(
+        result.uri,
+        [{ resize: { width: baseWidth, height: newHeight } }],
+        { compress: 0.5, format: ImageManipulator.SaveFormat.JPEG }
+      )
+        .then((response) => {
+          setImage(response.uri);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 

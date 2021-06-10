@@ -12,6 +12,7 @@ import { Input, Button, Avatar } from "react-native-elements";
 import thimbleApi from "../api/thimble";
 import * as ImagePicker from "expo-image-picker";
 import FormData from "form-data";
+import * as ImageManipulator from "expo-image-manipulator";
 
 const NewGroupScreen = ({ navigation }) => {
   const [name, setName] = useState("");
@@ -19,6 +20,7 @@ const NewGroupScreen = ({ navigation }) => {
   const [banner, setBanner] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [disable, setDisable] = useState(false);
+  const baseWidth = 1080;
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -111,7 +113,20 @@ const NewGroupScreen = ({ navigation }) => {
     });
 
     if (!result.cancelled) {
-      setBanner(result.uri);
+      let scaleFactor = baseWidth / result.width;
+      let newHeight = result.height * scaleFactor;
+
+      await ImageManipulator.manipulateAsync(
+        result.uri,
+        [{ resize: { width: baseWidth, height: newHeight } }],
+        { compress: 0.5, format: ImageManipulator.SaveFormat.JPEG }
+      )
+        .then((response) => {
+          setBanner(response.uri);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
