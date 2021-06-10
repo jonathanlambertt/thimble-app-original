@@ -65,7 +65,7 @@ const GroupsFlowStack = ({ navigation }) => (
               </View>
               <View style={{ alignSelf: "center" }}>
                 <PhotoThumbnail
-                  uri="https://bit.ly/3rEF965"
+                  uri={route.params.group.banner}
                   width={30}
                   height={30}
                 />

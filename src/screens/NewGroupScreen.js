@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import {
-  View,
   StyleSheet,
   Text,
   TouchableWithoutFeedback,
   Keyboard,
   TextInput,
   ScrollView,
+  Platform,
 } from "react-native";
-import { Input, Button } from "react-native-elements";
+import { Input, Button, Avatar } from "react-native-elements";
 import thimbleApi from "../api/thimble";
+import * as ImagePicker from "expo-image-picker";
+import FormData from "form-data";
 
 const NewGroupScreen = ({ navigation }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [banner, setBanner] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [disable, setDisable] = useState(false);
 
@@ -29,7 +32,7 @@ const NewGroupScreen = ({ navigation }) => {
           }}
           disabled={disable}
           onPress={() => {
-            createGroup(name, description);
+            createGroup(name, description, banner);
             setDisable(true);
           }}
           title="Create"
@@ -37,35 +40,107 @@ const NewGroupScreen = ({ navigation }) => {
         />
       ),
     });
-  }, [navigation, name, description, disable]);
+  }, [navigation, name, description, disable, banner]);
 
-  const createGroup = async (group_name, group_desc) => {
-    try {
-      if (description) {
-        await thimbleApi.post("g/", {
-          name: group_name,
-          description: group_desc,
+  const createGroup = async (group_name, group_desc, bannerPhoto) => {
+    let data = new FormData();
+    {
+      bannerPhoto
+        ? data.append("banner", {
+            uri:
+              Platform.OS === "android"
+                ? bannerPhoto
+                : bannerPhoto.replace("file://", ""),
+            name: "image.jpeg",
+            type: "image/jpg",
+          })
+        : null;
+    }
+    data.append("name", group_name);
+
+    if (description) {
+      data.append("description", group_desc);
+      try {
+        await thimbleApi.post("g/", data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Accept: "application/json",
+          },
         });
-      } else {
-        await thimbleApi.post("g/", { name: group_name });
+
+        navigation.navigate("Groups", { screen: "Created" });
+      } catch (error) {
+        let errorStr = "";
+
+        for (const prop in error.response.data) {
+          errorStr += `${prop} - ${error.response.data[prop][0]}\n`;
+        }
+
+        setErrorMessage(errorStr);
+        setDisable(false);
       }
+    } else {
+      try {
+        await thimbleApi.post("g/", data, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Accept: "application/json",
+          },
+        });
 
-      navigation.navigate("Groups", { screen: "Created" });
-    } catch (error) {
-      let errorStr = "";
+        navigation.navigate("Groups", { screen: "Created" });
+      } catch (error) {
+        let errorStr = "";
 
-      for (const prop in error.response.data) {
-        errorStr += `${prop} - ${error.response.data[prop][0]}\n`;
+        for (const prop in error.response.data) {
+          errorStr += `${prop} - ${error.response.data[prop][0]}\n`;
+        }
+
+        setErrorMessage(errorStr);
+        setDisable(false);
       }
+    }
+  };
 
-      setErrorMessage(errorStr);
-      setDisable(false);
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0.5,
+    });
+
+    if (!result.cancelled) {
+      setBanner(result.uri);
     }
   };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ScrollView style={{ flex: 1, paddingTop: 15, backgroundColor: "#fff" }}>
+        <Avatar
+          containerStyle={{
+            borderWidth: 0.5,
+            borderColor: "#d3d3d3",
+            alignSelf: "center",
+          }}
+          rounded
+          icon={{ name: "image", type: "feather", color: "#333" }}
+          size={80}
+          source={{ uri: banner }}
+        />
+        <Button
+          titleStyle={{
+            fontSize: 15,
+            fontWeight: "bold",
+            marginRight: 10,
+            color: "#A6A3FF",
+            marginBottom: 10,
+          }}
+          title="Choose a Banner"
+          type="clear"
+          onPress={pickImage}
+        />
         <Input
           value={name}
           onChangeText={setName}

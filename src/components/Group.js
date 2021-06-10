@@ -7,11 +7,7 @@ const Group = ({ result }) => {
   return (
     <View style={styles.container}>
       {result.banner ? (
-        <PhotoThumbnail
-          uri={result.sender.profile_picture}
-          width={60}
-          height={60}
-        />
+        <PhotoThumbnail uri={result.banner} width={60} height={60} />
       ) : (
         <PhotoThumbnail width={60} height={60} />
       )}

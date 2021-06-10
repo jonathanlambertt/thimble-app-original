@@ -21,7 +21,7 @@ const Post = ({ post }) => {
           <Text style={{ flex: 1, flexWrap: "wrap" }}>
             <Text style={{ fontWeight: "700" }}>{post.owner.user}</Text>
             <Text> posted in </Text>
-            <Text style={{ fontWeight: "700" }}>{post.group} </Text>
+            <Text style={{ fontWeight: "700" }}>{post.group.name} </Text>
             <Text style={{ color: "#9f9f9f" }}>{post.timestamp}</Text>
           </Text>
         </View>
