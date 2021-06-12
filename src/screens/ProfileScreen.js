@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
-import { Avatar } from "react-native-elements";
-import { Button } from "react-native-elements";
+import { Button, Avatar } from "react-native-elements";
 import thimbleApi from "../api/thimble";
+import { Context as UserContext } from "../context/UserContext";
 
 const ProfileScreen = ({ navigation }) => {
   const [profile, setProfile] = useState({});
+  const { setUser } = useContext(UserContext);
 
   useEffect(() => {
     const fetchProfile = navigation.addListener("focus", async () => {
@@ -72,6 +73,10 @@ const ProfileScreen = ({ navigation }) => {
           titleStyle={{ color: "#A6A3FF", fontSize: 16, fontWeight: "600" }}
           title="Edit Profile"
           type="outline"
+          onPress={() => {
+            navigation.navigate("EditProfileFlow");
+            setUser({ user: profile });
+          }}
         />
       </View>
     </ScrollView>
