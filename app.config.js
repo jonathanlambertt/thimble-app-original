@@ -10,7 +10,7 @@ const config = {
   assetBundlePatterns: ["**/*"],
   ios: {
     bundleIdentifier: "co.capulus.thimble",
-    buildNumber: "2",
+    buildNumber: "3",
   },
   android: {
     package: "co.capulus.thimble",

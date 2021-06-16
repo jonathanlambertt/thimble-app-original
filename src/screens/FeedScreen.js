@@ -26,7 +26,7 @@ const FeedScreen = ({ navigation }) => {
   };
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <FlatList
         data={posts}
         keyExtractor={(post) => post.uuid}
