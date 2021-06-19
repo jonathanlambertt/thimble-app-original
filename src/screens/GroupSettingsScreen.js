@@ -73,6 +73,7 @@ const GroupSettingsScreen = ({ navigation }) => {
               <ListItem.Chevron />
             </ListItem>
             <ListItem
+              onPress={() => navigation.navigate("EditGroupItem")}
               containerStyle={{
                 borderBottomRightRadius: 4,
                 borderBottomLeftRadius: 4,

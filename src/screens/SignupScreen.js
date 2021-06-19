@@ -33,6 +33,16 @@ const SignupScreen = ({ navigation }) => {
     return clearError;
   }, [navigation]);
 
+  const checkSpaces = (s) => {
+    let regSpace = new RegExp(/\s/);
+    if (regSpace.test(s)) {
+      return false;
+    } else {
+      setUsername(s);
+    }
+    return true;
+  };
+
   if (!loaded) {
     return null;
   } else {
@@ -63,7 +73,7 @@ const SignupScreen = ({ navigation }) => {
               <FormField
                 placeholder="Username"
                 value={username}
-                setValue={setUsername}
+                setValue={checkSpaces}
                 isSecure={false}
                 username={true}
               />

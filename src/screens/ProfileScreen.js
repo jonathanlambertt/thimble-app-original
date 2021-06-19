@@ -46,6 +46,10 @@ const ProfileScreen = ({ navigation }) => {
             size={80}
           />
         )}
+        <Text style={{ fontSize: 20, marginTop: 10 }}>@{profile.username}</Text>
+        <Text style={{ fontSize: 15, color: "#9f9f9f", marginTop: 2 }}>
+          {profile.full_name}
+        </Text>
       </View>
       <View style={styles.infoTextContainer}>
         <View style={{ alignItems: "center" }}>
@@ -87,7 +91,7 @@ const styles = StyleSheet.create({
   infoTextContainer: {
     flexDirection: "row",
     justifyContent: "space-evenly",
-    marginTop: 25,
+    marginTop: 20,
     alignItems: "center",
   },
   editProfileButton: {

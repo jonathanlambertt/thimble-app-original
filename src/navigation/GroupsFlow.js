@@ -7,6 +7,8 @@ import GroupDetailScreen from "../screens/GroupDetailScreen";
 import GroupSettingsScreen from "../screens/GroupSettingsScreen";
 import PhotoThumbnail from "../components/PhotoThumbnail";
 import EditGroupMembersScreen from "../screens/EditGroupMembersScreen";
+import EditGroupScreen from "../screens/EditGroupScreen";
+import { Avatar } from "react-native-elements";
 
 const GroupsFlow = createStackNavigator();
 
@@ -64,11 +66,22 @@ const GroupsFlowStack = ({ navigation }) => (
                 <Feather name="chevron-left" size={33} color="#a6a3ff" />
               </View>
               <View style={{ alignSelf: "center" }}>
-                <PhotoThumbnail
-                  uri={route.params.group.banner}
-                  width={30}
-                  height={30}
-                />
+                {route.params.group.banner ? (
+                  <PhotoThumbnail
+                    uri={route.params.group.banner}
+                    width={30}
+                    height={30}
+                  />
+                ) : (
+                  <Avatar
+                    containerStyle={{
+                      borderWidth: 0.5,
+                      borderColor: "#d3d3d3",
+                    }}
+                    rounded
+                    size={30}
+                  />
+                )}
               </View>
             </View>
           </TouchableOpacity>
@@ -89,6 +102,11 @@ const GroupsFlowStack = ({ navigation }) => (
       options={{ title: "Edit Members", headerBackTitleVisible: false }}
       name="AddFriendsItem"
       component={EditGroupMembersScreen}
+    />
+    <GroupsFlow.Screen
+      options={{ title: "Edit Group", headerBackTitleVisible: false }}
+      name="EditGroupItem"
+      component={EditGroupScreen}
     />
   </GroupsFlow.Navigator>
 );
