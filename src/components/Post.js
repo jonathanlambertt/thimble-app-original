@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     paddingLeft: 13,
-    paddingTop: 13,
+    paddingTop: 11,
     marginRight: 10,
   },
   headerTextContainer: {

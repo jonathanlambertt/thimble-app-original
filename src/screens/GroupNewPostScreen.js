@@ -147,7 +147,7 @@ const GroupNewPostScreen = ({ navigation }) => {
               post_type: String(selectedIndex),
               title: title,
               text: text,
-              group: state.group.uuid,
+              group: state.group.group.uuid,
             });
             navigation.navigate("GroupDetail");
           } catch (error) {
@@ -165,7 +165,7 @@ const GroupNewPostScreen = ({ navigation }) => {
             await thimbleApi.post("p/", {
               post_type: String(selectedIndex),
               text: text,
-              group: state.group.uuid,
+              group: state.group.group.uuid,
             });
             navigation.navigate("GroupDetail");
           } catch (error) {
@@ -187,7 +187,7 @@ const GroupNewPostScreen = ({ navigation }) => {
               post_type: String(selectedIndex),
               title: title,
               link: link,
-              group: state.group.uuid,
+              group: state.group.group.uuid,
             });
             navigation.navigate("GroupDetail");
           } catch (error) {
@@ -205,7 +205,7 @@ const GroupNewPostScreen = ({ navigation }) => {
             await thimbleApi.post("p/", {
               post_type: String(selectedIndex),
               link: link,
-              group: state.group.uuid,
+              group: state.group.group.uuid,
             });
             navigation.navigate("GroupDetail");
           } catch (error) {
@@ -235,7 +235,7 @@ const GroupNewPostScreen = ({ navigation }) => {
             : null;
         }
         data.append("post_type", String(selectedIndex));
-        data.append("group", state.group.uuid);
+        data.append("group", state.group.group.uuid);
 
         if (title) {
           data.append("title", title);

@@ -22,7 +22,7 @@ const EditGroupScreen = ({ navigation }) => {
 
   useEffect(() => {
     const setDescriptionField = navigation.addListener("focus", async () => {
-      setDescription(state.group.description);
+      setDescription(state.group.group.description);
     });
 
     return setDescriptionField;
@@ -51,7 +51,7 @@ const EditGroupScreen = ({ navigation }) => {
   }, [navigation, newBanner, description, disable]);
 
   const updateGroup = async () => {
-    if (newBanner == null && description == state.group.description) {
+    if (newBanner == null && description == state.group.group.description) {
       navigation.navigate("GroupDetail");
     } else {
       let data = new FormData();
@@ -68,13 +68,13 @@ const EditGroupScreen = ({ navigation }) => {
           : null;
       }
       {
-        description !== state.group.description
+        description !== state.group.group.description
           ? data.append("description", description)
           : null;
       }
 
       try {
-        await thimbleApi.put(`g/${state.group.uuid}/edit`, data);
+        await thimbleApi.put(`g/${state.group.group.uuid}/edit`, data);
         navigation.navigate("Groups");
       } catch (error) {}
     }
@@ -123,7 +123,7 @@ const EditGroupScreen = ({ navigation }) => {
                 uri: newBanner,
               }}
             />
-          ) : state.group.banner ? (
+          ) : state.group.group.banner ? (
             <Avatar
               containerStyle={{
                 borderWidth: 0.5,
@@ -133,7 +133,7 @@ const EditGroupScreen = ({ navigation }) => {
               icon={{ name: "user", type: "feather", color: "#333" }}
               size={80}
               source={{
-                uri: state.group.banner,
+                uri: state.group.group.banner,
               }}
             />
           ) : (

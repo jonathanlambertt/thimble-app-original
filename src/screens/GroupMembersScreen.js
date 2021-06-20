@@ -14,7 +14,7 @@ const GroupMembersScreen = () => {
       const fetchMembers = async () => {
         try {
           const response = await thimbleApi.get(
-            `g/${state.group.uuid}/members/all`
+            `g/${state.group.group.uuid}/members/all`
           );
           setResults(response.data);
         } catch (e) {}

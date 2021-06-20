@@ -47,9 +47,11 @@ const ProfileScreen = ({ navigation }) => {
           />
         )}
         <Text style={{ fontSize: 20, marginTop: 10 }}>@{profile.username}</Text>
-        <Text style={{ fontSize: 15, color: "#9f9f9f", marginTop: 2 }}>
-          {profile.full_name}
-        </Text>
+        {profile.full_name ? (
+          <Text style={{ fontSize: 15, color: "#9f9f9f", marginTop: 2 }}>
+            {profile.full_name}
+          </Text>
+        ) : null}
       </View>
       <View style={styles.infoTextContainer}>
         <View style={{ alignItems: "center" }}>

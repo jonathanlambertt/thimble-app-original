@@ -12,7 +12,7 @@ const GroupDetailScreen = () => {
   return (
     <>
       <View style={{ flex: 1, backgroundColor: "#fff" }}>
-        {state.group.description ? (
+        {state.group.group.description ? (
           <Text
             style={{
               marginHorizontal: 10,
@@ -21,7 +21,7 @@ const GroupDetailScreen = () => {
               fontSize: 13,
             }}
           >
-            {state.group.description}
+            {state.group.group.description}
           </Text>
         ) : null}
         <Tab.Navigator

@@ -13,7 +13,9 @@ const GroupPostsScreen = () => {
     React.useCallback(() => {
       const fetchPosts = async () => {
         try {
-          const response = await thimbleApi.get(`g/${state.group.uuid}/posts`);
+          const response = await thimbleApi.get(
+            `g/${state.group.group.uuid}/posts`
+          );
           setResults(response.data);
         } catch (error) {}
       };

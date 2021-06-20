@@ -32,7 +32,7 @@ const GroupsFlowStack = ({ navigation }) => (
     />
     <GroupsFlow.Screen
       options={({ route }) => ({
-        title: route.params.group.name,
+        title: route.params.group.group.name,
         headerTitleAlign: "left",
         headerStyle: { shadowColor: "#fff", elevation: 0 },
         headerRight: () => (
@@ -66,9 +66,9 @@ const GroupsFlowStack = ({ navigation }) => (
                 <Feather name="chevron-left" size={33} color="#a6a3ff" />
               </View>
               <View style={{ alignSelf: "center" }}>
-                {route.params.group.banner ? (
+                {route.params.group.group.banner ? (
                   <PhotoThumbnail
-                    uri={route.params.group.banner}
+                    uri={route.params.group.group.banner}
                     width={30}
                     height={30}
                   />

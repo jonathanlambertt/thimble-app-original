@@ -22,7 +22,7 @@ const EditGroupMembersScreen = () => {
         potentialMembers.filter((item) => item.uuid !== userUUID)
       );
       try {
-        await thimbleApi.put(`g/${state.group.uuid}/add/${userUUID}`);
+        await thimbleApi.put(`g/${state.group.group.uuid}/add/${userUUID}`);
       } catch (error) {}
       fetchCurrentMembers();
     } else {
@@ -30,7 +30,7 @@ const EditGroupMembersScreen = () => {
         currentMembers.filter((item) => item.uuid !== userUUID)
       );
       try {
-        await thimbleApi.put(`g/${state.group.uuid}/remove/${userUUID}`);
+        await thimbleApi.put(`g/${state.group.group.uuid}/remove/${userUUID}`);
       } catch (error) {}
       fetchPotentialMembers();
     }
@@ -39,7 +39,7 @@ const EditGroupMembersScreen = () => {
   const fetchCurrentMembers = async () => {
     try {
       const response = await thimbleApi.get(
-        `g/${state.group.uuid}/members/removable`
+        `g/${state.group.group.uuid}/members/removable`
       );
       setCurrentMembers(response.data);
     } catch (error) {}
@@ -48,7 +48,7 @@ const EditGroupMembersScreen = () => {
   const fetchPotentialMembers = async () => {
     try {
       const response = await thimbleApi.get(
-        `g/${state.group.uuid}/potential-members`
+        `g/${state.group.group.uuid}/potential-members`
       );
       setPotentialMembers(response.data);
     } catch (error) {}

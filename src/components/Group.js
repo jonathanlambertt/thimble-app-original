@@ -6,18 +6,22 @@ import { Entypo } from "@expo/vector-icons";
 const Group = ({ result }) => {
   return (
     <View style={styles.container}>
-      {result.banner ? (
-        <PhotoThumbnail uri={result.banner} width={60} height={60} />
+      {result.group.banner ? (
+        <PhotoThumbnail uri={result.group.banner} width={60} height={60} />
       ) : (
         <PhotoThumbnail width={60} height={60} />
       )}
       <View style={{ flex: 1, alignSelf: "center" }}>
-        <Text style={styles.groupName}>{result.name}</Text>
+        <Text style={styles.groupName}>{result.group.name}</Text>
         <Text style={{ marginLeft: 11, color: "#9f9f9f" }}>
-          {result.members}{" "}
-          {result.members == 1 ? <Text>member</Text> : <Text>members</Text>} ·{" "}
-          {result.posts}{" "}
-          {result.posts == 1 ? <Text>post</Text> : <Text>posts</Text>}
+          {result.group.members}{" "}
+          {result.group.members == 1 ? (
+            <Text>member</Text>
+          ) : (
+            <Text>members</Text>
+          )}{" "}
+          · {result.group.posts}{" "}
+          {result.group.posts == 1 ? <Text>post</Text> : <Text>posts</Text>}
         </Text>
       </View>
       <Entypo

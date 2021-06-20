@@ -23,7 +23,7 @@ const CreatedGroupsScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <FlatList
         data={results}
-        keyExtractor={(result) => result.uuid}
+        keyExtractor={(result) => result.group.uuid}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
