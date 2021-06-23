@@ -20,6 +20,7 @@ const config = {
     package: "co.capulus.thimble",
     versionCode: 2,
     permissions: ["READ_EXTERNAL_STORAGE"],
+    googleServicesFile: "./google-services.json",
   },
 };
 
