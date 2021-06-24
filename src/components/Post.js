@@ -1,9 +1,74 @@
-import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Share,
+} from "react-native";
 import PhotoThumbnail from "../components/PhotoThumbnail";
 import { LinkPreview } from "@flyerhq/react-native-link-preview";
+import { Entypo, Feather } from "@expo/vector-icons";
 
 const Post = ({ post }) => {
+  const onShare = async () => {
+    if (post.post_type == 0) {
+      try {
+        const result = await Share.share({ message: post.text });
+        if (result.action === Share.sharedAction) {
+          if (result.activityType) {
+            // shared with activity type of result.activityType
+          } else {
+            // shared
+          }
+        } else if (result.action === Share.dismissedAction) {
+          // dismissed
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    }
+    if (post.post_type == 1) {
+      try {
+        const result = await Share.share({
+          message: "Link from Thimble",
+          url: post.link,
+        });
+        if (result.action === Share.sharedAction) {
+          if (result.activityType) {
+            // shared with activity type of result.activityType
+          } else {
+            // shared
+          }
+        } else if (result.action === Share.dismissedAction) {
+          // dismissed
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    }
+    if (post.post_type == 2) {
+      try {
+        const result = await Share.share({
+          message: "Photo from Thimble",
+          url: post.photo,
+        });
+        if (result.action === Share.sharedAction) {
+          if (result.activityType) {
+            // shared with activity type of result.activityType
+          } else {
+            // shared
+          }
+        } else if (result.action === Share.dismissedAction) {
+          // dismissed
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -22,18 +87,13 @@ const Post = ({ post }) => {
             <Text style={{ fontWeight: "700" }}>{post.owner.user}</Text>
             <Text> posted in </Text>
             <Text style={{ fontWeight: "700" }}>{post.group.name} </Text>
-            <Text style={{ color: "#9f9f9f" }}>{post.timestamp}</Text>
+            <Text style={{ color: "#9f9f9f", fontWeight: "600" }}>
+              {post.timestamp}
+            </Text>
           </Text>
         </View>
       </View>
-      <View
-        style={{
-          marginLeft: 13,
-          marginBottom: 13,
-          marginRight: 10,
-          marginTop: 6,
-        }}
-      >
+      <View style={styles.postContent}>
         {post.title ? (
           <Text
             style={{
@@ -67,13 +127,46 @@ const Post = ({ post }) => {
           />
         ) : null}
       </View>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-around",
+          marginBottom: 10,
+        }}
+      >
+        <View style={{ flexDirection: "row" }}>
+          <Entypo
+            style={{ fontWeight: "bold" }}
+            name="emoji-happy"
+            size={20}
+            color="black"
+          />
+          <Text
+            style={{ alignSelf: "center", fontWeight: "bold", fontSize: 13 }}
+          >
+            {" "}
+            react
+          </Text>
+        </View>
+        <TouchableOpacity onPress={onShare}>
+          <View style={{ flexDirection: "row" }}>
+            <Feather name="share" size={20} color="black" />
+            <Text
+              style={{ alignSelf: "center", fontWeight: "bold", fontSize: 13 }}
+            >
+              {" "}
+              share
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.5,
     borderColor: "#cecece",
     backgroundColor: "#fff",
   },
@@ -89,6 +182,12 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     flexShrink: 1,
     flexDirection: "row",
+  },
+  postContent: {
+    marginLeft: 13,
+    marginBottom: 13,
+    marginRight: 13,
+    marginTop: 7,
   },
 });
 

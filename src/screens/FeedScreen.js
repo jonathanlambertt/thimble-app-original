@@ -45,6 +45,7 @@ const FeedScreen = ({ navigation }) => {
         <ActivityIndicator style={{ marginTop: 20 }} size="large" />
       ) : posts.length !== 0 ? (
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={posts}
           keyExtractor={(post) => post.uuid}
           renderItem={({ item }) => {

@@ -29,8 +29,8 @@ const AppTabBar = () => {
       <TabBar.Navigator
         tabBarOptions={{
           showLabel: false,
-          activeTintColor: "#A6A3FF",
-          inactiveTintColor: "#333333",
+          activeTintColor: "#333",
+          inactiveTintColor: "#b6b6b6",
         }}
       >
         <TabBar.Screen

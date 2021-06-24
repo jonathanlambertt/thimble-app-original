@@ -55,7 +55,7 @@ const InboxScreen = () => {
           style={{ alignItems: "center", justifyContent: "center", flex: 1 }}
         >
           <Text style={{ fontSize: 20, fontWeight: "500" }}>
-            Your inbox is currently empty.
+            No new notifications.
           </Text>
         </View>
       )}
