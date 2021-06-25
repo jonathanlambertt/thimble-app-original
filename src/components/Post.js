@@ -16,15 +16,6 @@ const Post = ({ post }) => {
     if (post.post_type == 0) {
       try {
         const result = await Share.share({ message: post.text });
-        if (result.action === Share.sharedAction) {
-          if (result.activityType) {
-            // shared with activity type of result.activityType
-          } else {
-            // shared
-          }
-        } else if (result.action === Share.dismissedAction) {
-          // dismissed
-        }
       } catch (error) {
         alert(error.message);
       }
@@ -35,15 +26,6 @@ const Post = ({ post }) => {
           message: "Link from Thimble",
           url: post.link,
         });
-        if (result.action === Share.sharedAction) {
-          if (result.activityType) {
-            // shared with activity type of result.activityType
-          } else {
-            // shared
-          }
-        } else if (result.action === Share.dismissedAction) {
-          // dismissed
-        }
       } catch (error) {
         alert(error.message);
       }
@@ -54,15 +36,6 @@ const Post = ({ post }) => {
           message: "Photo from Thimble",
           url: post.photo,
         });
-        if (result.action === Share.sharedAction) {
-          if (result.activityType) {
-            // shared with activity type of result.activityType
-          } else {
-            // shared
-          }
-        } else if (result.action === Share.dismissedAction) {
-          // dismissed
-        }
       } catch (error) {
         alert(error.message);
       }
@@ -106,7 +79,7 @@ const Post = ({ post }) => {
           </Text>
         ) : null}
         {post.post_type === 0 ? (
-          <Text style={{ fontSize: 16 }}>{post.text}</Text>
+          <Text style={{ fontSize: 16, marginTop: -4 }}>{post.text}</Text>
         ) : post.post_type === 1 ? (
           <LinkPreview
             containerStyle={{
@@ -138,11 +111,11 @@ const Post = ({ post }) => {
           <Entypo
             style={{ fontWeight: "bold" }}
             name="emoji-happy"
-            size={20}
+            size={18}
             color="black"
           />
           <Text
-            style={{ alignSelf: "center", fontWeight: "bold", fontSize: 13 }}
+            style={{ alignSelf: "center", fontWeight: "bold", fontSize: 12 }}
           >
             {" "}
             react
@@ -150,9 +123,9 @@ const Post = ({ post }) => {
         </View>
         <TouchableOpacity onPress={onShare}>
           <View style={{ flexDirection: "row" }}>
-            <Feather name="share" size={20} color="black" />
+            <Feather name="share" size={18} color="black" />
             <Text
-              style={{ alignSelf: "center", fontWeight: "bold", fontSize: 13 }}
+              style={{ alignSelf: "center", fontWeight: "bold", fontSize: 12 }}
             >
               {" "}
               share
@@ -187,7 +160,7 @@ const styles = StyleSheet.create({
     marginLeft: 13,
     marginBottom: 13,
     marginRight: 13,
-    marginTop: 7,
+    marginTop: 8,
   },
 });
 

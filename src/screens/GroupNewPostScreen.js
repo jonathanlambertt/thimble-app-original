@@ -6,6 +6,7 @@ import {
   TextInput,
   Image,
   Platform,
+  ActivityIndicator,
 } from "react-native";
 import { ButtonGroup, Input, Button } from "react-native-elements";
 import { FontAwesome5, Feather, Entypo } from "@expo/vector-icons";
@@ -16,6 +17,7 @@ import FormData from "form-data";
 import * as ImageManipulator from "expo-image-manipulator";
 
 const GroupNewPostScreen = ({ navigation }) => {
+  const [isPosting, setIsPosting] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
@@ -130,13 +132,14 @@ const GroupNewPostScreen = ({ navigation }) => {
           title="Post"
           type="clear"
           onPress={() => {
+            setIsPosting(true);
             sendPost(image);
             setDisable(true);
           }}
         />
       ),
     });
-  }, [navigation, selectedIndex, title, text, link, disable, image]);
+  }, [navigation, selectedIndex, title, text, link, disable, image, isPosting]);
 
   const sendPost = async (image) => {
     switch (selectedIndex) {
@@ -388,6 +391,7 @@ const GroupNewPostScreen = ({ navigation }) => {
           {errorMessage}
         </Text>
       ) : null}
+      <ActivityIndicator style={{ marginTop: 10 }} animating={isPosting} />
     </ScrollView>
   );
 };
