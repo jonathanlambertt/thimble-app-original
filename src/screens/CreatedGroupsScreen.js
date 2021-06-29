@@ -5,28 +5,62 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Text,
+  RefreshControl,
 } from "react-native";
 import thimbleApi from "../api/thimble";
 import Group from "../components/Group";
 import { Context as GroupContext } from "../context/GroupContext";
+import { useFocusEffect } from "@react-navigation/native";
 
 const CreatedGroupsScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [refreshing, setRefreshing] = React.useState(false);
   const [results, setResults] = useState([]);
-  const { setGroup } = useContext(GroupContext);
+  const { setGroup, setGroupWasCreated, state } = useContext(GroupContext);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (state.groupWasCreated) {
+        const test = async () => {
+          setIsLoading(true);
+          try {
+            const response = await thimbleApi.get("g/created");
+            setResults(response.data);
+            setIsLoading(false);
+            setGroupWasCreated({ value: false });
+          } catch (error) {}
+        };
+
+        test();
+      }
+    }, [state])
+  );
+
+  const fetchInitialGroups = async () => {
+    setIsLoading(true);
+    try {
+      const response = await thimbleApi.get("g/created");
+      setResults(response.data);
+      setIsLoading(false);
+    } catch (error) {}
+  };
+
+  const fetchGroups = async () => {
+    try {
+      const response = await thimbleApi.get("g/created");
+      setResults(response.data);
+      setRefreshing(false);
+    } catch (error) {}
+  };
 
   useEffect(() => {
-    const fetchGroups = navigation.addListener("focus", async () => {
-      setIsLoading(true);
-      try {
-        const response = await thimbleApi.get("g/created");
-        setResults(response.data);
-        setIsLoading(false);
-      } catch (error) {}
-    });
+    fetchInitialGroups();
+  }, []);
 
-    return fetchGroups;
-  }, [navigation]);
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    fetchGroups();
+  }, []);
 
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
@@ -48,6 +82,9 @@ const CreatedGroupsScreen = ({ navigation }) => {
               </TouchableOpacity>
             );
           }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         />
       ) : (
         <View

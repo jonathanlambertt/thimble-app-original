@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Text,
+  RefreshControl,
 } from "react-native";
 import thimbleApi from "../api/thimble";
 import Group from "../components/Group";
@@ -12,21 +13,36 @@ import { Context as GroupContext } from "../context/GroupContext";
 
 const JoinedGroupsScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [refreshing, setRefreshing] = React.useState(false);
   const [results, setResults] = useState([]);
   const { setGroup } = useContext(GroupContext);
 
-  useEffect(() => {
-    const fetchGroups = navigation.addListener("focus", async () => {
-      setIsLoading(true);
-      try {
-        const response = await thimbleApi.get("g/joined");
-        setResults(response.data);
-        setIsLoading(false);
-      } catch (error) {}
-    });
+  const fetchInitialGroups = async () => {
+    setIsLoading(true);
+    try {
+      const response = await thimbleApi.get("g/joined");
+      setResults(response.data);
+      setIsLoading(false);
+    } catch (error) {}
+  };
 
-    return fetchGroups;
-  }, [navigation]);
+  const fetchGroups = async () => {
+    try {
+      const response = await thimbleApi.get("g/joined");
+      setResults(response.data);
+      setRefreshing(false);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    fetchInitialGroups();
+  }, []);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    fetchGroups();
+  }, []);
+
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       {isLoading ? (
@@ -47,6 +63,9 @@ const JoinedGroupsScreen = ({ navigation }) => {
               </TouchableOpacity>
             );
           }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         />
       ) : (
         <View

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { ScrollView, Alert } from "react-native";
 import { ListItem } from "react-native-elements";
 import { Feather } from "@expo/vector-icons";
@@ -95,7 +95,7 @@ const GroupSettingsScreen = ({ navigation }) => {
                 fontWeight: "bold",
               }}
             >
-              Leave Group
+              Leave group
             </ListItem.Title>
           </ListItem.Content>
         </ListItem>

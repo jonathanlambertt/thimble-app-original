@@ -105,6 +105,7 @@ const Post = ({ post }) => {
           flexDirection: "row",
           justifyContent: "space-around",
           marginBottom: 10,
+          marginTop: -2,
         }}
       >
         <View style={{ flexDirection: "row" }}>

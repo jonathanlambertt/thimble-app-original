@@ -16,10 +16,19 @@ import GroupNewPostFlow from "./src/navigation/GroupNewPostFlow";
 import { Provider as GroupProvider } from "./src/context/GroupContext";
 import EditProfileFlow from "./src/navigation/EditProfileFlow";
 import { Provider as UserProvider } from "./src/context/UserContext";
+import * as Notifications from "expo-notifications";
 
 const RootStack = createStackNavigator();
 const RootStackFlow = () => {
   const { state, setLoadingFalse, setToken } = useContext(AuthContext);
+
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+    }),
+  });
 
   useEffect(() => {
     const checkForToken = async () => {

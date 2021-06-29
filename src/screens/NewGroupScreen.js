@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   Text,
@@ -13,6 +13,7 @@ import thimbleApi from "../api/thimble";
 import * as ImagePicker from "expo-image-picker";
 import FormData from "form-data";
 import * as ImageManipulator from "expo-image-manipulator";
+import { Context as GroupContext } from "../context/GroupContext";
 
 const NewGroupScreen = ({ navigation }) => {
   const [name, setName] = useState("");
@@ -20,6 +21,7 @@ const NewGroupScreen = ({ navigation }) => {
   const [banner, setBanner] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [disable, setDisable] = useState(false);
+  const { setGroupWasCreated } = useContext(GroupContext);
   const baseWidth = 1080;
 
   React.useLayoutEffect(() => {
@@ -71,6 +73,7 @@ const NewGroupScreen = ({ navigation }) => {
         });
 
         navigation.navigate("Groups", { screen: "Created" });
+        setGroupWasCreated({ value: true });
       } catch (error) {
         let errorStr = "";
 
@@ -91,6 +94,7 @@ const NewGroupScreen = ({ navigation }) => {
         });
 
         navigation.navigate("Groups", { screen: "Created" });
+        setGroupWasCreated({ value: true });
       } catch (error) {
         let errorStr = "";
 

@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   Text,
   Platform,
+  RefreshControl,
 } from "react-native";
 import thimbleApi from "../api/thimble";
 import Post from "../components/Post";
@@ -13,24 +14,17 @@ import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
 import FormData from "form-data";
 
-const FeedScreen = ({ navigation }) => {
+const FeedScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [refreshing, setRefreshing] = React.useState(false);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     registerForPushNotifications();
-    fetchFeed();
+    fetchInitialFeed();
   }, []);
 
-  useEffect(() => {
-    const callFetchFeed = navigation.addListener("focus", async () => {
-      fetchFeed();
-    });
-
-    return callFetchFeed;
-  }, [navigation]);
-
-  const fetchFeed = async () => {
+  const fetchInitialFeed = async () => {
     setIsLoading(true);
     try {
       const response = await thimbleApi.get("u/feed");
@@ -38,6 +32,19 @@ const FeedScreen = ({ navigation }) => {
       setIsLoading(false);
     } catch (error) {}
   };
+
+  const fetchFeed = async () => {
+    try {
+      const response = await thimbleApi.get("u/feed");
+      setPosts(response.data);
+      setRefreshing(false);
+    } catch (error) {}
+  };
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    fetchFeed();
+  }, []);
 
   return (
     <View style={{ flex: 1 }}>
@@ -51,6 +58,9 @@ const FeedScreen = ({ navigation }) => {
           renderItem={({ item }) => {
             return <Post post={item} />;
           }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         />
       ) : (
         <View
