@@ -1,22 +1,22 @@
 import React, { useState, useContext } from "react";
 import {
-  View,
-  Text,
   ScrollView,
+  Text,
   TextInput,
-  Image,
-  Platform,
+  View,
   ActivityIndicator,
+  Image,
 } from "react-native";
+import thimbleApi from "../api/thimble";
+import { Context as NewPostContext } from "../context/NewPostContext";
 import { ButtonGroup, Input, Button } from "react-native-elements";
 import { FontAwesome5, Feather, Entypo } from "@expo/vector-icons";
-import { Context as GroupContext } from "../context/GroupContext";
-import thimbleApi from "../api/thimble";
 import * as ImagePicker from "expo-image-picker";
 import FormData from "form-data";
 import * as ImageManipulator from "expo-image-manipulator";
 
-const GroupNewPostScreen = ({ navigation }) => {
+const NewPostFlowPost = ({ navigation }) => {
+  const { state } = useContext(NewPostContext);
   const [isPosting, setIsPosting] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [title, setTitle] = useState("");
@@ -25,8 +25,30 @@ const GroupNewPostScreen = ({ navigation }) => {
   const [image, setImage] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [disable, setDisable] = useState(false);
-  const { state } = useContext(GroupContext);
   const baseWidth = 1080;
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          titleStyle={{
+            fontSize: 15,
+            fontWeight: "bold",
+            marginRight: 10,
+            color: "#A6A3FF",
+          }}
+          disabled={disable}
+          title="Post"
+          type="clear"
+          onPress={() => {
+            setIsPosting(true);
+            sendPost(image);
+            setDisable(true);
+          }}
+        />
+      ),
+    });
+  }, [navigation, selectedIndex, title, text, link, disable, image, isPosting]);
 
   const textOption = () => (
     <>
@@ -118,29 +140,6 @@ const GroupNewPostScreen = ({ navigation }) => {
     { element: photoOption },
   ];
 
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <Button
-          titleStyle={{
-            fontSize: 15,
-            fontWeight: "bold",
-            marginRight: 10,
-            color: "#A6A3FF",
-          }}
-          disabled={disable}
-          title="Post"
-          type="clear"
-          onPress={() => {
-            setIsPosting(true);
-            sendPost(image);
-            setDisable(true);
-          }}
-        />
-      ),
-    });
-  }, [navigation, selectedIndex, title, text, link, disable, image, isPosting]);
-
   const sendPost = async (image) => {
     switch (selectedIndex) {
       case 0:
@@ -152,7 +151,7 @@ const GroupNewPostScreen = ({ navigation }) => {
               text: text,
               group: state.group.group.uuid,
             });
-            navigation.navigate("GroupDetail");
+            navigation.navigate("Feed");
           } catch (error) {
             let errorStr = "";
 
@@ -171,7 +170,7 @@ const GroupNewPostScreen = ({ navigation }) => {
               text: text,
               group: state.group.group.uuid,
             });
-            navigation.navigate("GroupDetail");
+            navigation.navigate("Feed");
           } catch (error) {
             let errorStr = "";
 
@@ -194,7 +193,7 @@ const GroupNewPostScreen = ({ navigation }) => {
               link: link,
               group: state.group.group.uuid,
             });
-            navigation.navigate("GroupDetail");
+            navigation.navigate("Feed");
           } catch (error) {
             let errorStr = "";
 
@@ -213,7 +212,7 @@ const GroupNewPostScreen = ({ navigation }) => {
               link: link,
               group: state.group.group.uuid,
             });
-            navigation.navigate("GroupDetail");
+            navigation.navigate("Feed");
           } catch (error) {
             let errorStr = "";
 
@@ -253,7 +252,7 @@ const GroupNewPostScreen = ({ navigation }) => {
                 Accept: "application/json",
               },
             });
-            navigation.navigate("GroupDetail");
+            navigation.navigate("Feed");
           } catch (error) {
             let errorStr = "";
 
@@ -273,7 +272,7 @@ const GroupNewPostScreen = ({ navigation }) => {
                 Accept: "application/json",
               },
             });
-            navigation.navigate("GroupDetail");
+            navigation.navigate("Feed");
           } catch (error) {
             let errorStr = "";
 
@@ -320,6 +319,10 @@ const GroupNewPostScreen = ({ navigation }) => {
 
   return (
     <ScrollView style={{ backgroundColor: "#fff" }}>
+      <Text style={{ marginTop: 10, fontSize: 18, alignSelf: "center" }}>
+        Posting to
+        <Text style={{ fontWeight: "600" }}> {state.group.group.name}</Text>
+      </Text>
       <TextInput
         value={title}
         onChangeText={setTitle}
@@ -402,4 +405,4 @@ const GroupNewPostScreen = ({ navigation }) => {
   );
 };
 
-export default GroupNewPostScreen;
+export default NewPostFlowPost;

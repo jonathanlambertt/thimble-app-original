@@ -17,6 +17,7 @@ import { Provider as GroupProvider } from "./src/context/GroupContext";
 import EditProfileFlow from "./src/navigation/EditProfileFlow";
 import { Provider as UserProvider } from "./src/context/UserContext";
 import * as Notifications from "expo-notifications";
+import { Provider as NewPostProvider } from "./src/context/NewPostContext";
 
 const RootStack = createStackNavigator();
 const RootStackFlow = () => {
@@ -96,10 +97,12 @@ export default function App() {
     <AuthProvider>
       <GroupProvider>
         <UserProvider>
-          <NavigationContainer ref={navigationRef}>
-            <StatusBar style="auto" />
-            <RootStackFlow />
-          </NavigationContainer>
+          <NewPostProvider>
+            <NavigationContainer ref={navigationRef}>
+              <StatusBar style="auto" />
+              <RootStackFlow />
+            </NavigationContainer>
+          </NewPostProvider>
         </UserProvider>
       </GroupProvider>
     </AuthProvider>
