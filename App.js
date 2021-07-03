@@ -18,6 +18,7 @@ import EditProfileFlow from "./src/navigation/EditProfileFlow";
 import { Provider as UserProvider } from "./src/context/UserContext";
 import * as Notifications from "expo-notifications";
 import { Provider as NewPostProvider } from "./src/context/NewPostContext";
+import ReactionFlow from "./src/navigation/ReactionFlow";
 
 const RootStack = createStackNavigator();
 const RootStackFlow = () => {
@@ -85,6 +86,11 @@ const RootStackFlow = () => {
         <RootStack.Screen
           name="EditProfileFlow"
           component={EditProfileFlow}
+          options={{ animationEnabled: true }}
+        />
+        <RootStack.Screen
+          name="ReactFlow"
+          component={ReactionFlow}
           options={{ animationEnabled: true }}
         />
       </RootStack.Navigator>

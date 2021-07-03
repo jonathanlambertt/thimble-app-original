@@ -40,8 +40,9 @@ const SearchScreen = ({ navigation }) => {
         search();
       } else {
         setResults([]);
+        setDisplayText("");
       }
-    }, 150);
+    }, 200);
 
     return () => clearTimeout(delayDebounceFn);
   }, [query]);
@@ -83,7 +84,14 @@ const SearchScreen = ({ navigation }) => {
             }}
           />
         ) : (
-          <Text style={{ textAlign: "center", fontSize: 16, marginTop: 5 }}>
+          <Text
+            style={{
+              textAlign: "center",
+              fontSize: 16,
+              marginTop: 5,
+              marginTop: 10,
+            }}
+          >
             {displayText}
           </Text>
         )}

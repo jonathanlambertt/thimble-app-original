@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
 import PhotoThumbnail from "../components/PhotoThumbnail";
 import { LinkPreview } from "@flyerhq/react-native-link-preview";
 import { Entypo, Feather } from "@expo/vector-icons";
+import * as RootNavigation from "../../src/RootNavigation";
 
 const Post = ({ post }) => {
   const onShare = async () => {
@@ -48,8 +49,8 @@ const Post = ({ post }) => {
         {post.owner.profile_picture ? (
           <PhotoThumbnail
             uri={post.owner.profile_picture}
-            width={38}
-            height={38}
+            width={37}
+            height={37}
           />
         ) : (
           <PhotoThumbnail width={38} height={38} />
@@ -73,6 +74,7 @@ const Post = ({ post }) => {
               fontSize: 17,
               marginBottom: 8,
               fontWeight: "500",
+              marginTop: -5,
             }}
           >
             {post.title}
@@ -108,20 +110,22 @@ const Post = ({ post }) => {
           marginTop: -2,
         }}
       >
-        <View style={{ flexDirection: "row" }}>
-          <Entypo
-            style={{ fontWeight: "bold" }}
-            name="emoji-happy"
-            size={18}
-            color="black"
-          />
-          <Text
-            style={{ alignSelf: "center", fontWeight: "bold", fontSize: 12 }}
-          >
-            {" "}
-            react
-          </Text>
-        </View>
+        <TouchableOpacity onPress={() => RootNavigation.navigate("ReactFlow")}>
+          <View style={{ flexDirection: "row" }}>
+            <Entypo
+              style={{ fontWeight: "bold" }}
+              name="emoji-happy"
+              size={18}
+              color="black"
+            />
+            <Text
+              style={{ alignSelf: "center", fontWeight: "bold", fontSize: 12 }}
+            >
+              {" "}
+              react
+            </Text>
+          </View>
+        </TouchableOpacity>
         <TouchableOpacity onPress={onShare}>
           <View style={{ flexDirection: "row" }}>
             <Feather name="share" size={18} color="black" />
@@ -148,7 +152,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     paddingLeft: 13,
-    paddingTop: 11,
+    paddingTop: 10,
     marginRight: 10,
   },
   headerTextContainer: {
