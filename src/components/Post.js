@@ -53,7 +53,7 @@ const Post = ({ post }) => {
             height={37}
           />
         ) : (
-          <PhotoThumbnail width={38} height={38} />
+          <PhotoThumbnail width={37} height={37} />
         )}
 
         <View style={styles.headerTextContainer}>
@@ -74,7 +74,7 @@ const Post = ({ post }) => {
               fontSize: 17,
               marginBottom: 8,
               fontWeight: "500",
-              marginTop: -5,
+              marginTop: -3,
             }}
           >
             {post.title}
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     paddingLeft: 13,
-    paddingTop: 10,
+    paddingTop: 11,
     marginRight: 10,
   },
   headerTextContainer: {
