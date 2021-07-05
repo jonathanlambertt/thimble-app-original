@@ -2,11 +2,11 @@ import React from "react";
 import { TouchableOpacity } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import ReactScreen from "../screens/ReactScreen";
-import { Feather, AntDesign } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 
 const ReactionFlow = createStackNavigator();
 
-const ReactionFlowStack = ({ navigation: { goBack }, navigation }) => (
+const ReactionFlowStack = ({ navigation: { goBack } }) => (
   <ReactionFlow.Navigator>
     <ReactionFlow.Screen
       name="React"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -101,6 +101,24 @@ const Post = ({ post }) => {
             source={{ uri: post.photo }}
           />
         ) : null}
+        {/* <View style={{ flexDirection: "row", marginTop: 5 }}>
+          <Text style={{ fontWeight: "600" }}>17 reactions - </Text>
+          <PhotoThumbnail
+            uri={post.owner.profile_picture}
+            width={20}
+            height={20}
+          />
+          <Text>:</Text>
+          <Text style={{ alignSelf: "center" }}>😂</Text>
+          <Text>, </Text>
+          <PhotoThumbnail
+            uri={post.owner.profile_picture}
+            width={20}
+            height={20}
+          />
+          <Text>:</Text>
+          <Text style={{ alignSelf: "center" }}>🥰</Text>
+        </View> */}
       </View>
       <View
         style={{
@@ -110,7 +128,11 @@ const Post = ({ post }) => {
           marginTop: -2,
         }}
       >
-        <TouchableOpacity onPress={() => RootNavigation.navigate("ReactFlow")}>
+        <TouchableOpacity
+          onPress={() => {
+            RootNavigation.navigate("ReactFlow");
+          }}
+        >
           <View style={{ flexDirection: "row" }}>
             <Entypo
               style={{ fontWeight: "bold" }}
