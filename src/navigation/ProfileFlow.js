@@ -2,7 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { TouchableOpacity } from "react-native";
 import ProfileScreen from "../screens/ProfileScreen";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, AntDesign } from "@expo/vector-icons";
 import ProfileSettingsScreen from "../screens/ProfileSettingsScreen";
 
 const ProfileFlow = createStackNavigator();
@@ -31,6 +31,16 @@ const ProfileFlowStack = ({ navigation }) => (
       options={{
         title: "Settings",
         headerBackTitleVisible: false,
+        headerLeft: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+            <AntDesign
+              name="arrowleft"
+              size={24}
+              color="black"
+              style={{ marginLeft: 17 }}
+            />
+          </TouchableOpacity>
+        ),
       }}
       name="ProfileSettings"
       component={ProfileSettingsScreen}

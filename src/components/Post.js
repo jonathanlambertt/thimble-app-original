@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   Text,
@@ -6,36 +6,55 @@ import {
   Image,
   TouchableOpacity,
   Share,
+  FlatList,
 } from "react-native";
 import PhotoThumbnail from "../components/PhotoThumbnail";
 import { LinkPreview } from "@flyerhq/react-native-link-preview";
 import { Entypo, Feather } from "@expo/vector-icons";
 import * as RootNavigation from "../../src/RootNavigation";
+import { Context as ReactContext } from "../context/ReactContext";
+import thimbleApi from "../api/thimble";
 
 const Post = ({ post }) => {
+  const { setUpdateReactionDataFunc, setPostId } = useContext(ReactContext);
+  const [recentReactions, setRecentReactions] = useState(
+    post.reactions.newest_three
+  );
+  const [reactionsCount, setReactionsCount] = useState(
+    post.reactions.total_reactions
+  );
+
+  const updateReactionsData = async () => {
+    try {
+      const response = await thimbleApi.get(`r/${post.post.uuid}`);
+      setReactionsCount(response.data.total_reactions);
+      setRecentReactions(response.data.newest_three);
+    } catch (error) {}
+  };
+
   const onShare = async () => {
-    if (post.post_type == 0) {
+    if (post.post.post_type == 0) {
       try {
-        const result = await Share.share({ message: post.text });
+        const result = await Share.share({ message: post.post.text });
       } catch (error) {
         alert(error.message);
       }
     }
-    if (post.post_type == 1) {
+    if (post.post.post_type == 1) {
       try {
         const result = await Share.share({
           message: "Link from Thimble",
-          url: post.link,
+          url: post.post.link,
         });
       } catch (error) {
         alert(error.message);
       }
     }
-    if (post.post_type == 2) {
+    if (post.post.post_type == 2) {
       try {
         const result = await Share.share({
           message: "Photo from Thimble",
-          url: post.photo,
+          url: post.post.photo,
         });
       } catch (error) {
         alert(error.message);
@@ -46,29 +65,28 @@ const Post = ({ post }) => {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        {post.owner.profile_picture ? (
+        {post.post.owner.profile_picture ? (
           <PhotoThumbnail
-            uri={post.owner.profile_picture}
+            uri={post.post.owner.profile_picture}
             width={37}
             height={37}
           />
         ) : (
           <PhotoThumbnail width={37} height={37} />
         )}
-
         <View style={styles.headerTextContainer}>
           <Text style={{ flex: 1, flexWrap: "wrap" }}>
-            <Text style={{ fontWeight: "700" }}>{post.owner.user}</Text>
+            <Text style={{ fontWeight: "700" }}>{post.post.owner.user}</Text>
             <Text> posted in </Text>
-            <Text style={{ fontWeight: "700" }}>{post.group.name} </Text>
+            <Text style={{ fontWeight: "700" }}>{post.post.group.name} </Text>
             <Text style={{ color: "#9f9f9f", fontWeight: "600" }}>
-              {post.timestamp}
+              {post.post.timestamp}
             </Text>
           </Text>
         </View>
       </View>
       <View style={styles.postContent}>
-        {post.title ? (
+        {post.post.title ? (
           <Text
             style={{
               fontSize: 17,
@@ -77,20 +95,20 @@ const Post = ({ post }) => {
               marginTop: -3,
             }}
           >
-            {post.title}
+            {post.post.title}
           </Text>
         ) : null}
-        {post.post_type === 0 ? (
-          <Text style={{ fontSize: 16, marginTop: -4 }}>{post.text}</Text>
-        ) : post.post_type === 1 ? (
+        {post.post.post_type === 0 ? (
+          <Text style={{ fontSize: 16, marginTop: -4 }}>{post.post.text}</Text>
+        ) : post.post.post_type === 1 ? (
           <LinkPreview
             containerStyle={{
               backgroundColor: "#f5f5f5",
               borderRadius: 4,
             }}
-            text={post.link}
+            text={post.post.link}
           />
-        ) : post.post_type === 2 ? (
+        ) : post.post.post_type === 2 ? (
           <Image
             style={{
               aspectRatio: 1,
@@ -98,27 +116,51 @@ const Post = ({ post }) => {
               borderWidth: 0.5,
               borderColor: "#d3d3d3",
             }}
-            source={{ uri: post.photo }}
+            source={{ uri: post.post.photo }}
           />
         ) : null}
-        {/* <View style={{ flexDirection: "row", marginTop: 5 }}>
-          <Text style={{ fontWeight: "600" }}>17 reactions - </Text>
-          <PhotoThumbnail
-            uri={post.owner.profile_picture}
-            width={20}
-            height={20}
-          />
-          <Text>:</Text>
-          <Text style={{ alignSelf: "center" }}>😂</Text>
-          <Text>, </Text>
-          <PhotoThumbnail
-            uri={post.owner.profile_picture}
-            width={20}
-            height={20}
-          />
-          <Text>:</Text>
-          <Text style={{ alignSelf: "center" }}>🥰</Text>
-        </View> */}
+        {reactionsCount === 0 ? null : (
+          <View
+            style={{
+              flexDirection: "row",
+              marginTop: 4,
+            }}
+          >
+            {reactionsCount == 0 ? null : reactionsCount == 1 ? (
+              <Text style={{ marginTop: 5, fontWeight: "500", fontSize: 14 }}>
+                {reactionsCount} reaction -
+              </Text>
+            ) : (
+              <Text style={{ marginTop: 5, fontWeight: "500", fontSize: 14 }}>
+                {reactionsCount} reactions -
+              </Text>
+            )}
+            {recentReactions.length === 0 ? null : (
+              <View style={{ marginTop: 3 }}>
+                <FlatList
+                  data={recentReactions}
+                  horizontal={true}
+                  keyExtractor={(item) => item.owner.profile_picture}
+                  renderItem={({ item }) => {
+                    return (
+                      <View style={{ marginLeft: 6, flexDirection: "row" }}>
+                        <PhotoThumbnail
+                          uri={item.owner.profile_picture}
+                          width={20}
+                          height={20}
+                        />
+                        <Text>:</Text>
+                        <Text style={{ alignSelf: "center" }}>
+                          {item.reaction}
+                        </Text>
+                      </View>
+                    );
+                  }}
+                />
+              </View>
+            )}
+          </View>
+        )}
       </View>
       <View
         style={{
@@ -130,7 +172,9 @@ const Post = ({ post }) => {
       >
         <TouchableOpacity
           onPress={() => {
+            setUpdateReactionDataFunc({ f: updateReactionsData });
             RootNavigation.navigate("ReactFlow");
+            setPostId({ id: post.post.uuid });
           }}
         >
           <View style={{ flexDirection: "row" }}>

@@ -32,6 +32,24 @@ const AppTabBar = () => {
           activeTintColor: "#333",
           inactiveTintColor: "#b6b6b6",
         }}
+        // screenOptions={({ route }) => ({
+        //   tabBarIcon: ({ focused, color, size, padding }) => {
+        //     if (route.name == "FeedTab") {
+        //       if (focused) {
+        //         return <FontAwesome name="home" size={24} color="black" />;
+        //       } else {
+        //         return (
+        //           <View>
+        //             <Image
+        //               style={{ width: 16, height: 16 }}
+        //               source={require("../../assets/icons/fluent_home-16-regular.png")}
+        //             />
+        //           </View>
+        //         );
+        //       }
+        //     }
+        //   },
+        // })}
       >
         <TabBar.Screen
           name="FeedTab"

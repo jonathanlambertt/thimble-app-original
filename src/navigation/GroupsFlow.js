@@ -2,7 +2,7 @@ import React from "react";
 import { TouchableOpacity, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import GroupsScreen from "../screens/GroupsScreen";
-import { Feather, Ionicons, FontAwesome5 } from "@expo/vector-icons";
+import { Feather, Ionicons, FontAwesome5, AntDesign } from "@expo/vector-icons";
 import GroupDetailScreen from "../screens/GroupDetailScreen";
 import GroupSettingsScreen from "../screens/GroupSettingsScreen";
 import PhotoThumbnail from "../components/PhotoThumbnail";
@@ -94,17 +94,57 @@ const GroupsFlowStack = ({ navigation }) => (
       options={{
         title: "Settings",
         headerBackTitleVisible: false,
+        headerLeft: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("GroupDetail")}>
+            <AntDesign
+              name="arrowleft"
+              size={24}
+              color="black"
+              style={{ marginLeft: 17 }}
+            />
+          </TouchableOpacity>
+        ),
       }}
       name="GroupSettings"
       component={GroupSettingsScreen}
     />
     <GroupsFlow.Screen
-      options={{ title: "Edit Members", headerBackTitleVisible: false }}
+      options={{
+        title: "Edit Members",
+        headerBackTitleVisible: false,
+        headerLeft: () => (
+          <TouchableOpacity
+            onPress={() => navigation.navigate("GroupSettings")}
+          >
+            <AntDesign
+              name="arrowleft"
+              size={24}
+              color="black"
+              style={{ marginLeft: 17 }}
+            />
+          </TouchableOpacity>
+        ),
+      }}
       name="AddFriendsItem"
       component={EditGroupMembersScreen}
     />
     <GroupsFlow.Screen
-      options={{ title: "Edit Group", headerBackTitleVisible: false }}
+      options={{
+        title: "Edit Group",
+        headerBackTitleVisible: false,
+        headerLeft: () => (
+          <TouchableOpacity
+            onPress={() => navigation.navigate("GroupSettings")}
+          >
+            <AntDesign
+              name="arrowleft"
+              size={24}
+              color="black"
+              style={{ marginLeft: 17 }}
+            />
+          </TouchableOpacity>
+        ),
+      }}
       name="EditGroupItem"
       component={EditGroupScreen}
     />

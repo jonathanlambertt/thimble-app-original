@@ -19,6 +19,7 @@ import { Provider as UserProvider } from "./src/context/UserContext";
 import * as Notifications from "expo-notifications";
 import { Provider as NewPostProvider } from "./src/context/NewPostContext";
 import ReactionFlow from "./src/navigation/ReactionFlow";
+import { Provider as ReactionProvider } from "./src/context/ReactContext";
 
 const RootStack = createStackNavigator();
 const RootStackFlow = () => {
@@ -104,10 +105,12 @@ export default function App() {
       <GroupProvider>
         <UserProvider>
           <NewPostProvider>
-            <NavigationContainer ref={navigationRef}>
-              <StatusBar style="auto" />
-              <RootStackFlow />
-            </NavigationContainer>
+            <ReactionProvider>
+              <NavigationContainer ref={navigationRef}>
+                <StatusBar style="auto" />
+                <RootStackFlow />
+              </NavigationContainer>
+            </ReactionProvider>
           </NewPostProvider>
         </UserProvider>
       </GroupProvider>

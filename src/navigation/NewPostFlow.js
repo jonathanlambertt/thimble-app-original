@@ -13,7 +13,7 @@ const NewPostFlowStack = ({ navigation: { goBack }, navigation }) => (
       name="New Post"
       component={NewPostScreen}
       options={{
-        title: "Post to...",
+        title: "Post to",
         headerBackTitleVisible: false,
         headerLeft: () => (
           <TouchableOpacity onPress={() => goBack()}>

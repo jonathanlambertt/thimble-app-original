@@ -3,7 +3,7 @@ import { TouchableOpacity } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import FeedScreen from "../screens/FeedScreen";
 import InboxScreen from "../screens/InboxScreen";
-import { Fontisto } from "@expo/vector-icons";
+import { Fontisto, AntDesign } from "@expo/vector-icons";
 import LogoHeader from "../components/LogoHeader";
 
 const FeedFlow = createStackNavigator();
@@ -30,7 +30,20 @@ const FeedFlowStack = ({ navigation }) => (
     <FeedFlow.Screen
       name="Inbox"
       component={InboxScreen}
-      options={{ headerBackTitleVisible: false, title: "Notifications" }}
+      options={{
+        headerBackTitleVisible: false,
+        title: "Notifications",
+        headerLeft: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("Feed")}>
+            <AntDesign
+              name="arrowleft"
+              size={24}
+              color="black"
+              style={{ marginLeft: 17 }}
+            />
+          </TouchableOpacity>
+        ),
+      }}
     />
   </FeedFlow.Navigator>
 );

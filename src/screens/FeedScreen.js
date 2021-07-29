@@ -54,7 +54,7 @@ const FeedScreen = () => {
         <FlatList
           showsVerticalScrollIndicator={false}
           data={posts}
-          keyExtractor={(post) => post.uuid}
+          keyExtractor={(post) => post.post.uuid}
           renderItem={({ item }) => {
             return <Post post={item} />;
           }}

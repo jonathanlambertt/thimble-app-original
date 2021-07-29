@@ -2,9 +2,21 @@ import React, { useState, useContext } from "react";
 import { View, Text, SafeAreaView } from "react-native";
 import EmojiSelector, { Categories } from "react-native-emoji-selector";
 import { Button } from "react-native-elements";
+import { Context as ReactContext } from "../context/ReactContext";
+import thimbleApi from "../api/thimble";
 
-const ReactScreen = () => {
+const ReactScreen = ({ navigation: { goBack } }) => {
+  const { state } = useContext(ReactContext);
   const [reaction, setReaction] = useState("👍");
+
+  const sendReaction = async () => {
+    try {
+      await thimbleApi.post(`r/${state.postId}`, { reaction: reaction });
+      state.updateReactionData();
+      //navigation.dangerouslyGetParent()?.goBack();
+      goBack();
+    } catch (error) {}
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
@@ -28,6 +40,9 @@ const ReactScreen = () => {
         />
       </View>
       <Button
+        onPress={() => {
+          sendReaction();
+        }}
         titleStyle={{ fontSize: 16, fontWeight: "bold", marginRight: 10 }}
         buttonStyle={{
           borderRadius: 20,

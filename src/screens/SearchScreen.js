@@ -72,6 +72,9 @@ const SearchScreen = ({ navigation }) => {
           autoCapitalize="none"
           autoCorrect={false}
           onCancel={() => setResults([])}
+          cancelButtonProps={{
+            color: "#FF878A",
+          }}
         />
         {isLoading ? (
           <ActivityIndicator style={{ marginTop: 10 }} size="large" />
@@ -109,8 +112,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     paddingTop: 10,
     paddingBottom: 10,
-    borderBottomColor: "#d3d3d3",
-    borderBottomWidth: 1,
+    //borderBottomColor: "#d3d3d3",
+    //borderBottomWidth: 1,
   },
 });
 
