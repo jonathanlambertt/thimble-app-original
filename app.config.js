@@ -10,7 +10,7 @@ const config = {
   assetBundlePatterns: ["**/*"],
   ios: {
     bundleIdentifier: "co.capulus.thimble",
-    buildNumber: "7",
+    buildNumber: "8",
     infoPlist: {
       NSPhotoLibraryUsageDescription:
         "This app uses the photo library to allow picking a photo to post.",
@@ -18,7 +18,7 @@ const config = {
   },
   android: {
     package: "co.capulus.thimble",
-    versionCode: 3,
+    versionCode: 4,
     permissions: ["READ_EXTERNAL_STORAGE"],
     googleServicesFile: "./google-services.json",
   },
