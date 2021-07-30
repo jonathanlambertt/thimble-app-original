@@ -127,23 +127,26 @@ const Post = ({ post }) => {
             }}
           >
             {reactionsCount == 0 ? null : reactionsCount == 1 ? (
-              <Text style={{ marginTop: 5, fontWeight: "500", fontSize: 14 }}>
-                {reactionsCount} reaction -
+              <Text style={{ marginTop: 5, fontSize: 14 }}>
+                <Text style={{ fontWeight: "600" }}>{reactionsCount}</Text>{" "}
+                reaction -
               </Text>
             ) : (
-              <Text style={{ marginTop: 5, fontWeight: "500", fontSize: 14 }}>
-                {reactionsCount} reactions -
+              <Text style={{ marginTop: 5, fontSize: 14 }}>
+                <Text style={{ fontWeight: "600" }}>{reactionsCount}</Text>{" "}
+                reactions -
               </Text>
             )}
             {recentReactions.length === 0 ? null : (
-              <View style={{ marginTop: 3 }}>
+              <View style={{ marginTop: 3, marginLeft: 4 }}>
                 <FlatList
                   data={recentReactions}
                   horizontal={true}
+                  scrollEnabled={false}
                   keyExtractor={(item) => item.owner.profile_picture}
                   renderItem={({ item }) => {
                     return (
-                      <View style={{ marginLeft: 6, flexDirection: "row" }}>
+                      <View style={{ flexDirection: "row", marginRight: 5 }}>
                         <PhotoThumbnail
                           uri={item.owner.profile_picture}
                           width={20}

@@ -36,15 +36,22 @@ const AppTabBar = () => {
         //   tabBarIcon: ({ focused, color, size, padding }) => {
         //     if (route.name == "FeedTab") {
         //       if (focused) {
-        //         return <FontAwesome name="home" size={24} color="black" />;
+        //         return <Icon name="fluent_home-20-filled" size={tabIconSize} />;
         //       } else {
         //         return (
-        //           <View>
-        //             <Image
-        //               style={{ width: 16, height: 16 }}
-        //               source={require("../../assets/icons/fluent_home-16-regular.png")}
-        //             />
-        //           </View>
+        //           <Icon name="fluent_home-20-regular" size={tabIconSize} />
+        //         );
+        //       }
+        //     }
+
+        //     if (route.name == "SearchTab") {
+        //       if (focused) {
+        //         return (
+        //           <Icon name="fluent_search-12-filled" size={tabIconSize} />
+        //         );
+        //       } else {
+        //         return (
+        //           <Icon name="fluent_search-12-regular" size={tabIconSize} />
         //         );
         //       }
         //     }

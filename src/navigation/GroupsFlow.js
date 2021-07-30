@@ -63,7 +63,7 @@ const GroupsFlowStack = ({ navigation }) => (
           <TouchableOpacity onPress={() => navigation.navigate("Groups")}>
             <View style={{ flex: 1, flexDirection: "row" }}>
               <View style={{ alignSelf: "center" }}>
-                <Feather name="chevron-left" size={33} color="#a6a3ff" />
+                <Feather name="chevron-left" size={33} color="black" />
               </View>
               <View style={{ alignSelf: "center" }}>
                 {route.params.group.group.banner ? (
