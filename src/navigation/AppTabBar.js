@@ -2,7 +2,7 @@ import React from "react";
 import { View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useFonts } from "expo-font";
-import { createIconSetFromIcoMoon, Feather } from "@expo/vector-icons";
+import { createIconSetFromIcoMoon } from "@expo/vector-icons";
 import FeedFlow from "./FeedFlow";
 import SearchFlow from "./SearchFlow";
 import GroupsFlow from "./GroupsFlow";
@@ -67,7 +67,7 @@ const AppTabBar = () => {
               if (focused) {
                 return (
                   <View style={{ marginTop: 8 }}>
-                    <Icon name="groups2-fill" size={43} />
+                    <Icon name="groups2-fill" size={41} />
                   </View>
                 );
               } else {
@@ -75,7 +75,7 @@ const AppTabBar = () => {
                   <View style={{ marginTop: 8 }}>
                     <Icon
                       name="groups2-outline"
-                      size={43}
+                      size={41}
                       style={{ color: color }}
                     />
                   </View>
@@ -99,32 +99,13 @@ const AppTabBar = () => {
           },
         })}
       >
-        <TabBar.Screen
-          name="FeedTab"
-          component={FeedFlow}
-          // options={{
-          //   tabBarIcon: ({ color }) => (
-          //     <Icon name="home" color={color} size={tabIconSize} />
-          //   ),
-          // }}
-        />
-        <TabBar.Screen
-          name="SearchTab"
-          component={SearchFlow}
-          // options={{
-          //   tabBarIcon: ({ color }) => (
-          //     <Icon name="search" color={color} size={tabIconSize} />
-          //   ),
-          // }}
-        />
+        <TabBar.Screen name="FeedTab" component={FeedFlow} />
+        <TabBar.Screen name="SearchTab" component={SearchFlow} />
         <TabBar.Screen
           name="New Post"
           component={PlaceholderScreen}
           options={{
-            tabBarIcon: () => (
-              // <Feather name="plus-circle" color="#FF878A" size={37} />
-              <Icon name="add2" color="#FF878A" size={42} />
-            ),
+            tabBarIcon: () => <Icon name="add2" color="#FF878A" size={41} />,
           }}
           listeners={({ navigation }) => ({
             tabPress: (e) => {
@@ -133,24 +114,8 @@ const AppTabBar = () => {
             },
           })}
         />
-        <TabBar.Screen
-          name="GroupsTab"
-          component={GroupsFlow}
-          // options={{
-          //   tabBarIcon: ({ color }) => (
-          //     <Icon name="groups" color={color} size={tabIconSize} />
-          //   ),
-          // }}
-        />
-        <TabBar.Screen
-          name="ProfileTab"
-          component={ProfileFlow}
-          // options={{
-          //   tabBarIcon: ({ color }) => (
-          //     <Icon name="profile" color={color} size={tabIconSize} />
-          //   ),
-          // }}
-        />
+        <TabBar.Screen name="GroupsTab" component={GroupsFlow} />
+        <TabBar.Screen name="ProfileTab" component={ProfileFlow} />
       </TabBar.Navigator>
     );
   }
