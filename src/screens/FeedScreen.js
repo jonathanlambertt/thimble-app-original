@@ -46,6 +46,15 @@ const FeedScreen = () => {
     fetchFeed();
   }, []);
 
+  const loadMore = async () => {
+    try {
+      const response = await thimbleApi.get(
+        `u/feed/${posts[posts.length - 1].post.uuid}`
+      );
+      setPosts([...posts, ...response.data]);
+    } catch (error) {}
+  };
+
   return (
     <View style={{ flex: 1 }}>
       {isLoading ? (
@@ -61,6 +70,8 @@ const FeedScreen = () => {
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
+          onEndReached={loadMore}
+          onEndReachedThreshold={0}
         />
       ) : (
         <View
