@@ -71,7 +71,7 @@ const FeedScreen = () => {
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
           onEndReached={loadMore}
-          onEndReachedThreshold={0}
+          onEndReachedThreshold={2}
         />
       ) : (
         <View
