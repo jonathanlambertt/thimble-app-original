@@ -30,6 +30,7 @@ module.exports = () => {
       ...config,
       extra: {
         baseURL: "https://www.thimbleapp.co/v1/",
+        shareURL: "https://www.thimbleapp.co/p/",
       },
     };
   } else {
@@ -37,6 +38,7 @@ module.exports = () => {
       ...config,
       extra: {
         baseURL: "http://192.168.1.11:8000/v1/",
+        shareURL: "http://192.168.1.11:8000/p/",
       },
     };
   }

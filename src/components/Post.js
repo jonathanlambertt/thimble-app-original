@@ -14,6 +14,7 @@ import { Entypo, Feather } from "@expo/vector-icons";
 import * as RootNavigation from "../../src/RootNavigation";
 import { Context as ReactContext } from "../context/ReactContext";
 import thimbleApi from "../api/thimble";
+import Constants from "expo-constants";
 
 const Post = ({ post }) => {
   const { setUpdateReactionDataFunc, setPostId } = useContext(ReactContext);
@@ -33,33 +34,11 @@ const Post = ({ post }) => {
   };
 
   const onShare = async () => {
-    if (post.post.post_type == 0) {
-      try {
-        const result = await Share.share({ message: post.post.text });
-      } catch (error) {
-        alert(error.message);
-      }
-    }
-    if (post.post.post_type == 1) {
-      try {
-        const result = await Share.share({
-          message: "Link from Thimble",
-          url: post.post.link,
-        });
-      } catch (error) {
-        alert(error.message);
-      }
-    }
-    if (post.post.post_type == 2) {
-      try {
-        const result = await Share.share({
-          message: "Photo from Thimble",
-          url: post.post.photo,
-        });
-      } catch (error) {
-        alert(error.message);
-      }
-    }
+    try {
+      await Share.share({
+        url: Constants.manifest.extra.shareURL + `${post.post.uuid}`,
+      });
+    } catch (error) {}
   };
 
   return (
