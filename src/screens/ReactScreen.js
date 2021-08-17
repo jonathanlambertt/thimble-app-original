@@ -13,7 +13,6 @@ const ReactScreen = ({ navigation: { goBack } }) => {
     try {
       await thimbleApi.post(`r/${state.postId}`, { reaction: reaction });
       state.updateReactionData();
-      //navigation.dangerouslyGetParent()?.goBack();
       goBack();
     } catch (error) {}
   };
@@ -35,7 +34,7 @@ const ReactScreen = ({ navigation: { goBack } }) => {
           category={Categories.emotion}
           onEmojiSelected={(emoji) => setReaction(emoji)}
           showSectionTitles={false}
-          showSearchBar={false}
+          showSearchBar={true}
           columns={7}
         />
       </View>

@@ -12,7 +12,7 @@ const ReactionFlowStack = ({ navigation: { goBack } }) => (
       name="React"
       component={ReactScreen}
       options={{
-        title: "Add a Reaction",
+        title: "Send a Reaction",
         headerBackTitleVisible: false,
         headerLeft: () => (
           <TouchableOpacity onPress={() => goBack()}>
