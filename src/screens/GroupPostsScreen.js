@@ -50,7 +50,7 @@ const GroupPostsScreen = () => {
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       {isLoading ? (
         <ActivityIndicator style={{ marginTop: 10 }} size="large" />
-      ) : results.length !== 0 ? (
+      ) : (
         <FlatList
           data={results}
           keyExtractor={(result) => result.post.uuid}
@@ -60,15 +60,19 @@ const GroupPostsScreen = () => {
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
+          ListEmptyComponent={
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "500",
+                textAlign: "center",
+                marginTop: 20,
+              }}
+            >
+              Be the first to post in this group.
+            </Text>
+          }
         />
-      ) : (
-        <View
-          style={{ alignItems: "center", justifyContent: "center", flex: 1 }}
-        >
-          <Text style={{ fontSize: 20, fontWeight: "500" }}>
-            Be the first to post in this group.
-          </Text>
-        </View>
       )}
     </View>
   );

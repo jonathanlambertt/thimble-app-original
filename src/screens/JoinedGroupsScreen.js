@@ -47,7 +47,7 @@ const JoinedGroupsScreen = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       {isLoading ? (
         <ActivityIndicator style={{ marginTop: 10 }} size="large" />
-      ) : results.length !== 0 ? (
+      ) : (
         <FlatList
           data={results}
           keyExtractor={(result) => result.group.uuid}
@@ -66,22 +66,20 @@ const JoinedGroupsScreen = ({ navigation }) => {
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
+          ListEmptyComponent={
+            <Text
+              style={{
+                textAlign: "center",
+                fontSize: 18,
+                marginHorizontal: 10,
+                fontWeight: "500",
+                marginTop: 50,
+              }}
+            >
+              When friends add you to groups they will show up here.
+            </Text>
+          }
         />
-      ) : (
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-          <Text
-            style={{
-              textAlign: "center",
-              fontSize: 18,
-              marginHorizontal: 10,
-              fontWeight: "500",
-            }}
-          >
-            When friends add you to a group they will show up here.
-          </Text>
-        </View>
       )}
     </View>
   );

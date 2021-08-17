@@ -59,7 +59,7 @@ const FeedScreen = () => {
     <View style={{ flex: 1 }}>
       {isLoading ? (
         <ActivityIndicator style={{ marginTop: 20 }} size="large" />
-      ) : posts.length !== 0 ? (
+      ) : (
         <FlatList
           showsVerticalScrollIndicator={false}
           data={posts}
@@ -72,24 +72,22 @@ const FeedScreen = () => {
           }
           onEndReached={loadMore}
           onEndReachedThreshold={2}
+          ListEmptyComponent={
+            <Text
+              style={{
+                textAlign: "center",
+                fontSize: 18,
+                fontWeight: "500",
+                marginHorizontal: 10,
+                lineHeight: 25,
+                marginTop: 50,
+              }}
+            >
+              This is your main feed. Posts from groups you're a part of will be
+              shown here.
+            </Text>
+          }
         />
-      ) : (
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-          <Text
-            style={{
-              textAlign: "center",
-              fontSize: 18,
-              fontWeight: "500",
-              marginHorizontal: 10,
-              lineHeight: 25,
-            }}
-          >
-            This is your main feed. Posts from groups you're a part of will be
-            shown here.
-          </Text>
-        </View>
       )}
     </View>
   );
