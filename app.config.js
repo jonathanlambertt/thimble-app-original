@@ -18,7 +18,7 @@ const config = {
   },
   android: {
     package: "co.capulus.thimble",
-    versionCode: 5,
+    versionCode: 6,
     permissions: ["READ_EXTERNAL_STORAGE"],
     googleServicesFile: "./google-services.json",
   },
