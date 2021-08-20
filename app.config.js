@@ -10,7 +10,7 @@ const config = {
   assetBundlePatterns: ["**/*"],
   ios: {
     bundleIdentifier: "co.capulus.thimble",
-    buildNumber: "11",
+    buildNumber: "12",
     infoPlist: {
       NSPhotoLibraryUsageDescription:
         "This app uses the photo library to allow picking a photo to post.",

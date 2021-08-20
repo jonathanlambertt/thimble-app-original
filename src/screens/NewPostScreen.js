@@ -39,17 +39,9 @@ const NewPostScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: "#fff" }}>
       {isLoading ? (
         <ActivityIndicator size="large" />
-      ) : createdGroups.length == 0 && joinedGroups.length == 0 ? (
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-          <Text style={{ fontSize: 18, fontWeight: "600" }}>
-            You have not created or joined any groups.
-          </Text>
-        </View>
       ) : (
         <SectionList
           sections={[
@@ -70,6 +62,19 @@ const NewPostScreen = ({ navigation }) => {
             </TouchableOpacity>
           )}
           keyExtractor={(item) => item.group.uuid}
+          ListEmptyComponent={
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ fontSize: 18, fontWeight: "600" }}>
+                You have not created or joined any groups.
+              </Text>
+            </View>
+          }
         />
       )}
     </View>
