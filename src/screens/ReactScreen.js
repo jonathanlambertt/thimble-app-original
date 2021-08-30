@@ -42,7 +42,7 @@ const ReactScreen = ({ navigation: { goBack } }) => {
         onPress={() => {
           sendReaction();
         }}
-        titleStyle={{ fontSize: 16, fontWeight: "bold", marginRight: 10 }}
+        titleStyle={{ fontSize: 16, fontWeight: "bold" }}
         buttonStyle={{
           borderRadius: 20,
           backgroundColor: "#A6A3FF",
@@ -50,6 +50,7 @@ const ReactScreen = ({ navigation: { goBack } }) => {
         containerStyle={{
           paddingTop: 10,
           paddingHorizontal: 15,
+          marginBottom: 25,
         }}
         title="React"
       />
