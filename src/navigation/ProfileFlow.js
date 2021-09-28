@@ -4,6 +4,7 @@ import { TouchableOpacity } from "react-native";
 import ProfileScreen from "../screens/ProfileScreen";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import ProfileSettingsScreen from "../screens/ProfileSettingsScreen";
+import FriendsScreen from "../screens/FriendsScreen";
 
 const ProfileFlow = createStackNavigator();
 
@@ -44,6 +45,24 @@ const ProfileFlowStack = ({ navigation }) => (
       }}
       name="ProfileSettings"
       component={ProfileSettingsScreen}
+    />
+    <ProfileFlow.Screen
+      options={{
+        title: "Friends",
+        headerBackTitleVisible: false,
+        headerLeft: () => (
+          <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+            <AntDesign
+              name="arrowleft"
+              size={24}
+              color="black"
+              style={{ marginLeft: 17 }}
+            />
+          </TouchableOpacity>
+        ),
+      }}
+      name="FriendsScreen"
+      component={FriendsScreen}
     />
   </ProfileFlow.Navigator>
 );
