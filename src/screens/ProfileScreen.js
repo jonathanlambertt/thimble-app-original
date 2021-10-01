@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Text, View, StyleSheet, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { Button, Avatar } from "react-native-elements";
 import thimbleApi from "../api/thimble";
 import { Context as UserContext } from "../context/UserContext";
@@ -66,12 +72,14 @@ const ProfileScreen = ({ navigation }) => {
           </Text>
           <Text style={{ fontSize: 16 }}>groups</Text>
         </View>
-        <View style={{ alignItems: "center" }}>
-          <Text style={{ fontSize: 17, fontWeight: "bold" }}>
-            {profile.friends}
-          </Text>
-          <Text style={{ fontSize: 16 }}>friends</Text>
-        </View>
+        <TouchableOpacity onPress={() => navigation.navigate("FriendsScreen")}>
+          <View style={{ alignItems: "center" }}>
+            <Text style={{ fontSize: 17, fontWeight: "bold" }}>
+              {profile.friends}
+            </Text>
+            <Text style={{ fontSize: 16 }}>friends</Text>
+          </View>
+        </TouchableOpacity>
       </View>
       <View style={{ marginTop: 25, paddingHorizontal: 30 }}>
         <Button
