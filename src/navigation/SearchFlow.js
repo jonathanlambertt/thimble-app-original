@@ -5,7 +5,7 @@ import SearchScreen from "../screens/SearchScreen";
 const SearchFlow = createStackNavigator();
 
 const SearchFlowStack = () => (
-  <SearchFlow.Navigator>
+  <SearchFlow.Navigator headerMode={"none"}>
     <SearchFlow.Screen name="Search" component={SearchScreen} />
   </SearchFlow.Navigator>
 );
