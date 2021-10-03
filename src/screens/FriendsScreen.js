@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, FlatList, StyleSheet } from "react-native";
+import { View, FlatList, StyleSheet, Text } from "react-native";
 import thimbleApi from "../api/thimble";
 import UserDisplay from "../components/UserDisplay";
 
@@ -25,6 +25,20 @@ const FriendsScreen = () => {
         renderItem={({ item }) => {
           return <UserDisplay result={item} />;
         }}
+        ListEmptyComponent={
+          <Text
+            style={{
+              textAlign: "center",
+              fontSize: 18,
+              fontWeight: "500",
+              marginHorizontal: 10,
+              lineHeight: 25,
+              marginTop: 50,
+            }}
+          >
+            Invite some friends to Thimble!
+          </Text>
+        }
       />
     </View>
   );
