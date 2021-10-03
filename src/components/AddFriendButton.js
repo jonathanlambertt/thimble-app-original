@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   addFriendButton: {
     alignSelf: "flex-end",
     borderRadius: 3,
-    backgroundColor: "#ff878a",
+    backgroundColor: "#a3ceff",
     paddingHorizontal: 10,
     paddingVertical: 5,
     marginRight: 15,
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     marginRight: 10,
     fontWeight: "bold",
-    color: "#ff878a",
+    color: "#a3ceff",
     fontSize: 15,
   },
 });

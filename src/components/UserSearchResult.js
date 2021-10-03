@@ -1,23 +1,45 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import AddFriendButton from "./AddFriendButton";
-import UserInfo from "./UserInfo";
+import { Avatar } from "react-native-elements";
 
 const UserSearchResult = ({ result }) => {
   return (
-    <View style={styles.container}>
+    <View style={{ flexDirection: "row", marginTop: 12, marginLeft: 15 }}>
       {result.profile.profile_picture ? (
-        <UserInfo
-          uri={result.profile.profile_picture}
-          username={result.profile.user}
-          fullname={result.profile.full_name}
+        <Avatar
+          containerStyle={{
+            borderWidth: 0.5,
+            borderColor: "#d3d3d3",
+          }}
+          rounded
+          icon={{ name: "user", type: "feather", color: "#333" }}
+          size={55}
+          source={{
+            uri: result.profile.profile_picture,
+          }}
         />
       ) : (
-        <UserInfo
-          username={result.profile.user}
-          fullname={result.profile.full_name}
+        <Avatar
+          containerStyle={{
+            borderWidth: 0.5,
+            borderColor: "#d3d3d3",
+          }}
+          rounded
+          icon={{ name: "user", type: "feather", color: "#333" }}
+          size={55}
         />
       )}
+      <View style={{ alignSelf: "center", marginLeft: 12 }}>
+        <Text style={{ fontSize: 16, fontWeight: "500" }}>
+          {result.profile.user}
+        </Text>
+        {result.profile.full_name ? (
+          <Text style={{ marginTop: 3, color: "#9f9f9f", fontSize: 15 }}>
+            {result.profile.full_name}
+          </Text>
+        ) : null}
+      </View>
       <View style={styles.cardEndContainer}>
         <AddFriendButton
           friendUUID={result.profile.uuid}

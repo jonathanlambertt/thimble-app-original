@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  ActivityIndicator,
-  Text,
-  Keyboard,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { FlatList, ActivityIndicator, Text, SafeAreaView } from "react-native";
 import { SearchBar } from "react-native-elements";
 import UserSearchResult from "../components/UserSearchResult";
 import thimbleApi from "../api/thimble";
@@ -42,7 +34,7 @@ const SearchScreen = ({ navigation }) => {
         setResults([]);
         setDisplayText("");
       }
-    }, 200);
+    }, 250);
 
     return () => clearTimeout(delayDebounceFn);
   }, [query]);
@@ -58,63 +50,49 @@ const SearchScreen = ({ navigation }) => {
   }, [navigation]);
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
-        <SearchBar
-          value={query}
-          onChangeText={(newQuery) => {
-            setQuery(newQuery);
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+      <SearchBar
+        value={query}
+        onChangeText={(newQuery) => {
+          setQuery(newQuery);
+        }}
+        placeholder="Search"
+        lightTheme={true}
+        inputContainerStyle={{ backgroundColor: "#dcdcdc" }}
+        containerStyle={{
+          backgroundColor: "#fff",
+          borderTopWidth: 0,
+        }}
+        inputStyle={{ color: "#000" }}
+        selectionColor="#909090"
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+      {isLoading ? (
+        <ActivityIndicator style={{ marginTop: 10 }} size="large" />
+      ) : (
+        <FlatList
+          data={results}
+          keyExtractor={(result) => result.profile.uuid}
+          renderItem={({ item }) => {
+            return <UserSearchResult result={item} />;
           }}
-          platform="ios"
-          placeholder="Search for friends"
-          cancelButtonTitle="Cancel"
-          containerStyle={styles.searchContainer}
-          autoCapitalize="none"
-          autoCorrect={false}
-          onCancel={() => setResults([])}
-          cancelButtonProps={{
-            color: "#FF878A",
-          }}
+          ListEmptyComponent={
+            <Text
+              style={{
+                textAlign: "center",
+                fontSize: 16,
+                marginTop: 5,
+                marginTop: 10,
+              }}
+            >
+              {displayText}
+            </Text>
+          }
         />
-        {isLoading ? (
-          <ActivityIndicator style={{ marginTop: 10 }} size="large" />
-        ) : results.length !== 0 ? (
-          <FlatList
-            data={results}
-            keyExtractor={(result) => result.profile.uuid}
-            renderItem={({ item }) => {
-              return <UserSearchResult result={item} />;
-            }}
-          />
-        ) : (
-          <Text
-            style={{
-              textAlign: "center",
-              fontSize: 16,
-              marginTop: 5,
-              marginTop: 10,
-            }}
-          >
-            {displayText}
-          </Text>
-        )}
-      </View>
-    </TouchableWithoutFeedback>
+      )}
+    </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  searchContainer: {
-    paddingHorizontal: 5,
-    paddingTop: 10,
-    paddingBottom: 10,
-    //borderBottomColor: "#d3d3d3",
-    //borderBottomWidth: 1,
-  },
-});
 
 export default SearchScreen;
