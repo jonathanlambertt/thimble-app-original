@@ -7,7 +7,7 @@ const ProfileSettingsScreen = () => {
   const { logout } = useContext(AuthContext);
 
   const displayAlert = () =>
-    Alert.alert("Warning", "Are you sure you want to log out?", [
+    Alert.alert("Are you sure you want to log out?", "", [
       {
         text: "Cancel",
         style: "cancel",
