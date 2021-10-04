@@ -5,7 +5,7 @@ import { Avatar } from "react-native-elements";
 
 const UserSearchResult = ({ result }) => {
   return (
-    <View style={{ flexDirection: "row", marginTop: 12, marginLeft: 15 }}>
+    <View style={{ flexDirection: "row", marginTop: 15, marginLeft: 15 }}>
       {result.profile.profile_picture ? (
         <Avatar
           containerStyle={{
@@ -31,11 +31,17 @@ const UserSearchResult = ({ result }) => {
         />
       )}
       <View style={{ alignSelf: "center", marginLeft: 12 }}>
-        <Text style={{ fontSize: 16, fontWeight: "500" }}>
+        <Text style={{ fontSize: 15, fontWeight: "500" }}>
           {result.profile.user}
         </Text>
         {result.profile.full_name ? (
-          <Text style={{ marginTop: 3, color: "#9f9f9f", fontSize: 15 }}>
+          <Text
+            style={{
+              marginTop: 2,
+              color: "#9f9f9f",
+              fontSize: 14,
+            }}
+          >
             {result.profile.full_name}
           </Text>
         ) : null}

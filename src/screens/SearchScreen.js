@@ -56,6 +56,7 @@ const SearchScreen = ({ navigation }) => {
         onChangeText={(newQuery) => {
           setQuery(newQuery);
         }}
+        platform="ios"
         placeholder="Search"
         lightTheme={true}
         inputContainerStyle={{ backgroundColor: "#dcdcdc" }}
@@ -64,9 +65,14 @@ const SearchScreen = ({ navigation }) => {
           borderTopWidth: 0,
         }}
         inputStyle={{ color: "#000" }}
-        selectionColor="#909090"
+        selectionColor="#9d9d9d"
         autoCapitalize="none"
         autoCorrect={false}
+        round
+        cancelButtonTitle="Cancel"
+        cancelButtonProps={{
+          color: "#ff878a",
+        }}
       />
       {isLoading ? (
         <ActivityIndicator style={{ marginTop: 10 }} size="large" />
