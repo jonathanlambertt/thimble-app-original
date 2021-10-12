@@ -47,7 +47,7 @@ const GroupPostsScreen = () => {
   }, []);
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#fff" }}>
+    <View style={{ flex: 1 }}>
       {isLoading ? (
         <ActivityIndicator style={{ marginTop: 10 }} size="large" />
       ) : (

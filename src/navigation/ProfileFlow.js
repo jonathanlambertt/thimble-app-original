@@ -48,7 +48,7 @@ const ProfileFlowStack = ({ navigation }) => (
     />
     <ProfileFlow.Screen
       options={{
-        title: "Friends",
+        title: "My Friends",
         headerBackTitleVisible: false,
         headerLeft: () => (
           <TouchableOpacity onPress={() => navigation.navigate("Profile")}>

@@ -37,7 +37,7 @@ const UserSearchResult = ({ result }) => {
         {result.profile.full_name ? (
           <Text
             style={{
-              marginTop: 2,
+              marginTop: 1,
               color: "#9f9f9f",
               fontSize: 14,
             }}

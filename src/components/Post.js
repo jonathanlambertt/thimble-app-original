@@ -192,9 +192,10 @@ const Post = ({ post }) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomWidth: 0.5,
-    borderColor: "#cecece",
+    //borderBottomWidth: 0.5,
+    //borderColor: "#cecece",
     backgroundColor: "#fff",
+    marginBottom: 8,
   },
   headerContainer: {
     flex: 1,

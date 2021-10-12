@@ -33,7 +33,7 @@ const UserDisplay = ({ result }) => {
       <View style={{ alignSelf: "center", marginLeft: 12 }}>
         <Text style={{ fontSize: 15, fontWeight: "500" }}>{result.user}</Text>
         {result.full_name ? (
-          <Text style={{ marginTop: 2, color: "#9f9f9f", fontSize: 14 }}>
+          <Text style={{ marginTop: 1, color: "#9f9f9f", fontSize: 14 }}>
             {result.full_name}
           </Text>
         ) : null}
