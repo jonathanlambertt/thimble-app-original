@@ -1,15 +1,26 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
-import PhotoThumbnail from "../components/PhotoThumbnail";
 import { Entypo } from "@expo/vector-icons";
+import { Avatar } from "react-native-elements";
 
 const Group = ({ result }) => {
   return (
     <View style={styles.container}>
       {result.group.banner ? (
-        <PhotoThumbnail uri={result.group.banner} width={60} height={60} />
+        <Avatar
+          containerStyle={{ borderWidth: 0.5, borderColor: "#d3d3d3" }}
+          rounded
+          size={60}
+          source={{
+            uri: result.group.banner,
+          }}
+        />
       ) : (
-        <PhotoThumbnail width={60} height={60} />
+        <Avatar
+          containerStyle={{ borderWidth: 0.5, borderColor: "#d3d3d3" }}
+          rounded
+          size={60}
+        />
       )}
       <View style={{ flex: 1, alignSelf: "center" }}>
         <Text style={styles.groupName}>{result.group.name}</Text>

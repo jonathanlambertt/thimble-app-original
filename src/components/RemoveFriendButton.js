@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Alert } from "react-native";
 import thimbleApi from "../api/thimble";
 
-const RemoveFriendButton = ({ result }) => {
+const RemoveFriendButton = ({ friendID, username }) => {
   const [disable, setDisable] = useState(false);
   const [removed, setRemoved] = useState(false);
 
   const displayAlert = () =>
-    Alert.alert("Warning", `Remove ${result.user} as a friend?`, [
+    Alert.alert("Warning", `Remove ${username} as a friend?`, [
       {
         text: "Cancel",
         style: "cancel",
@@ -22,10 +22,11 @@ const RemoveFriendButton = ({ result }) => {
   const removeFriend = async () => {
     setDisable(true);
     try {
-      await thimbleApi.put(`u/remove/${result.uuid}`);
+      await thimbleApi.put(`u/remove/${friendID}`);
       setRemoved(true);
     } catch (error) {}
   };
+
   return (
     <View style={{ flex: 1, alignSelf: "center" }}>
       {removed ? (

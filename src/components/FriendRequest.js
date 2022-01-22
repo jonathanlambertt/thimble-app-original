@@ -1,20 +1,28 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
-import PhotoThumbnail from "../components/PhotoThumbnail";
 
 const FriendRequest = ({ result, handleFriendRequest }) => {
   return (
     <View style={styles.container}>
       <View style={styles.userInfoContainer}>
         {result.sender.profile_picture ? (
-          <PhotoThumbnail
-            uri={result.sender.profile_picture}
-            width={50}
-            height={50}
+          <Avatar
+            containerStyle={{ borderWidth: 0.5, borderColor: "#d3d3d3" }}
+            rounded
+            icon={{ name: "user", type: "feather", color: "#333" }}
+            size={50}
+            source={{
+              uri: result.sender.profile_picture,
+            }}
           />
         ) : (
-          <PhotoThumbnail width={50} height={50} />
+          <Avatar
+            containerStyle={{ borderWidth: 0.5, borderColor: "#d3d3d3" }}
+            rounded
+            icon={{ name: "user", type: "feather", color: "#333" }}
+            size={50}
+          />
         )}
 
         <View style={styles.userTextContainer}>

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { Ionicons, FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Feather } from "@expo/vector-icons";
 import thimbleApi from "../api/thimble";
 
-const AddFriendButton = ({ friendUUID, friends, pending }) => {
+const AddFriendButton = ({ friendID, areFriends, isPending }) => {
   const [pressed, setPressed] = useState(false);
   const [disable, setDisable] = useState(false);
 
@@ -11,7 +11,7 @@ const AddFriendButton = ({ friendUUID, friends, pending }) => {
     setDisable(true);
     try {
       await thimbleApi.post("n/send", {
-        recipient_uuid: friendUUID,
+        recipient_uuid: friendID,
         notification_type: 1,
         text: "",
       });
@@ -21,7 +21,7 @@ const AddFriendButton = ({ friendUUID, friends, pending }) => {
 
   return (
     <View>
-      {friends ? null : pending ? (
+      {areFriends ? null : isPending ? (
         <Text style={styles.pending}>Pending</Text>
       ) : (
         <View>
@@ -37,7 +37,7 @@ const AddFriendButton = ({ friendUUID, friends, pending }) => {
                 sendFriendRequest();
               }}
             >
-              <Ionicons name="person-add-outline" size={23} color="#fff" />
+              <Feather name="user-plus" size={23} color="#fff" />
             </TouchableOpacity>
           )}
         </View>
@@ -53,11 +53,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#ff878a",
     paddingHorizontal: 10,
     paddingVertical: 5,
-    marginRight: 15,
   },
   pending: {
     alignSelf: "flex-end",
-    marginRight: 10,
     fontWeight: "bold",
     color: "#ff878a",
     fontSize: 15,

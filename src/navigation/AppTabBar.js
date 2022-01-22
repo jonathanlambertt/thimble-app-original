@@ -3,10 +3,10 @@ import { View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useFonts } from "expo-font";
 import { createIconSetFromIcoMoon } from "@expo/vector-icons";
-import FeedFlow from "./FeedFlow";
-import SearchFlow from "./SearchFlow";
-import GroupsFlow from "./GroupsFlow";
-import ProfileFlow from "./ProfileFlow";
+import FeedFlow from "./feed/FeedFlow";
+import SearchFlow from "./search/SearchFlow";
+import GroupsFlow from "./groups/GroupsFlow";
+import ProfileFlow from "./profile/ProfileFlow";
 
 const TabBar = createBottomTabNavigator();
 const tabIconSize = 29;
@@ -37,7 +37,7 @@ const AppTabBar = () => {
           tabBarIcon: ({ focused, color }) => {
             if (route.name == "FeedTab") {
               if (focused) {
-                return <Icon name="home2-fill-other" size={tabIconSize} />;
+                return <Icon name="home2-fill" size={tabIconSize} />;
               } else {
                 return (
                   <Icon

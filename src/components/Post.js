@@ -8,13 +8,13 @@ import {
   Share,
   FlatList,
 } from "react-native";
-import PhotoThumbnail from "../components/PhotoThumbnail";
 import { LinkPreview } from "@flyerhq/react-native-link-preview";
 import { Entypo, Feather } from "@expo/vector-icons";
 import * as RootNavigation from "../../src/RootNavigation";
 import { Context as ReactContext } from "../context/ReactContext";
 import thimbleApi from "../api/thimble";
 import Constants from "expo-constants";
+import { Avatar } from "react-native-elements/dist/avatar/Avatar";
 
 const Post = ({ post }) => {
   const { setUpdateReactionDataFunc, setPostId } = useContext(ReactContext);
@@ -45,13 +45,22 @@ const Post = ({ post }) => {
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         {post.post.owner.profile_picture ? (
-          <PhotoThumbnail
-            uri={post.post.owner.profile_picture}
-            width={37}
-            height={37}
+          <Avatar
+            containerStyle={{ borderWidth: 0.5, borderColor: "#d3d3d3" }}
+            rounded
+            icon={{ name: "user", type: "feather", color: "#333" }}
+            size={37}
+            source={{
+              uri: post.post.owner.profile_picture,
+            }}
           />
         ) : (
-          <PhotoThumbnail width={37} height={37} />
+          <Avatar
+            containerStyle={{ borderWidth: 0.5, borderColor: "#d3d3d3" }}
+            rounded
+            icon={{ name: "user", type: "feather", color: "#333" }}
+            size={37}
+          />
         )}
         <View style={styles.headerTextContainer}>
           <Text style={{ flex: 1, flexWrap: "wrap" }}>
@@ -126,11 +135,38 @@ const Post = ({ post }) => {
                   renderItem={({ item }) => {
                     return (
                       <View style={{ flexDirection: "row", marginRight: 5 }}>
-                        <PhotoThumbnail
-                          uri={item.owner.profile_picture}
-                          width={20}
-                          height={20}
-                        />
+                        {item.owner.profile_picture ? (
+                          <Avatar
+                            containerStyle={{
+                              borderWidth: 0.5,
+                              borderColor: "#d3d3d3",
+                            }}
+                            rounded
+                            icon={{
+                              name: "user",
+                              type: "feather",
+                              color: "#333",
+                            }}
+                            size={20}
+                            source={{
+                              uri: item.owner.profile_picture,
+                            }}
+                          />
+                        ) : (
+                          <Avatar
+                            containerStyle={{
+                              borderWidth: 0.5,
+                              borderColor: "#d3d3d3",
+                            }}
+                            rounded
+                            icon={{
+                              name: "user",
+                              type: "feather",
+                              color: "#333",
+                            }}
+                            size={20}
+                          />
+                        )}
                         <Text>:</Text>
                         <Text style={{ alignSelf: "center" }}>
                           {item.reaction}
@@ -192,8 +228,6 @@ const Post = ({ post }) => {
 
 const styles = StyleSheet.create({
   container: {
-    //borderBottomWidth: 0.5,
-    //borderColor: "#cecece",
     backgroundColor: "#fff",
     marginBottom: 8,
   },
