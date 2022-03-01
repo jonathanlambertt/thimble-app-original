@@ -84,7 +84,7 @@ const ProfileScreen = ({ navigation }) => {
       <View style={{ marginTop: 25, paddingHorizontal: 30 }}>
         <Button
           buttonStyle={styles.editProfileButton}
-          titleStyle={{ color: "#A6A3FF", fontSize: 16, fontWeight: "600" }}
+          titleStyle={{ color: "#000", fontSize: 16, fontWeight: "600" }}
           title="Edit Profile"
           type="outline"
           onPress={() => {
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   editProfileButton: {
-    borderColor: "#A6A3FF",
+    borderColor: "#000",
     borderWidth: 1,
     paddingVertical: 8,
   },

@@ -2,7 +2,7 @@ import React from "react";
 import { TouchableOpacity, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import GroupsScreen from "../../screens/groups/GroupsScreen";
-import { Feather, Ionicons, FontAwesome5, AntDesign } from "@expo/vector-icons";
+import { Feather, AntDesign } from "@expo/vector-icons";
 import GroupDetailScreen from "../../screens/groups/GroupDetailScreen";
 import GroupSettingsScreen from "../../screens/groups/GroupSettingsScreen";
 import EditGroupMembersScreen from "../../screens/groups/EditGroupMembersScreen";
@@ -37,21 +37,21 @@ const GroupsFlowStack = ({ navigation }) => (
         headerRight: () => (
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <TouchableOpacity
-              onPress={() => navigation.navigate("GroupSettings")}
+              onPress={() => navigation.navigate("GroupNewPostFlow")}
             >
-              <Ionicons
-                name="settings-outline"
-                size={26}
+              <Feather
+                name="plus-circle"
+                size={25}
                 color="black"
-                style={{ marginRight: 15 }}
+                style={{ marginRight: 10 }}
               />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate("GroupNewPostFlow")}
+              onPress={() => navigation.navigate("GroupSettings")}
             >
-              <FontAwesome5
-                name="paper-plane"
-                size={20}
+              <Feather
+                name="menu"
+                size={25}
                 color="black"
                 style={{ marginRight: 15 }}
               />

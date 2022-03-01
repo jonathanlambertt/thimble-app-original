@@ -25,7 +25,6 @@ const GroupDetailScreen = () => {
           </Text>
         ) : null}
         <Tab.Navigator
-          swipeEnabled={false}
           tabBarOptions={{
             activeTintColor: "#333",
             inactiveTintColor: "#9f9f9f",
