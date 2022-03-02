@@ -8,8 +8,10 @@ import thimbleApi from "../api/thimble";
 const ReactScreen = ({ navigation: { goBack } }) => {
   const { state } = useContext(ReactContext);
   const [reaction, setReaction] = useState("👍");
+  const [reactIsDisabled, setReactIsDisabled] = useState(false);
 
   const sendReaction = async () => {
+    setReactIsDisabled(true);
     try {
       await thimbleApi.post(`r/${state.postId}`, { reaction: reaction });
       state.updateReactionData();
@@ -53,6 +55,7 @@ const ReactScreen = ({ navigation: { goBack } }) => {
           marginBottom: 25,
         }}
         title="React"
+        disabled={reactIsDisabled}
       />
     </SafeAreaView>
   );

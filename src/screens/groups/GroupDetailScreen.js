@@ -29,7 +29,7 @@ const GroupDetailScreen = () => {
             activeTintColor: "#333",
             inactiveTintColor: "#9f9f9f",
             indicatorStyle: {
-              width: 0,
+              backgroundColor: "#a6a3ff",
             },
             style: {
               shadowColor: "#fff",

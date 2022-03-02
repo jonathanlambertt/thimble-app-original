@@ -31,7 +31,7 @@ const AppTabBar = () => {
         tabBarOptions={{
           showLabel: false,
           activeTintColor: "#333",
-          inactiveTintColor: "#b6b6b6",
+          inactiveTintColor: "#a9a9a9",
         }}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color }) => {
