@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import thimbleApi from "../../api/thimble";
 import Post from "../../components/Post";
+import Post2 from "../../components/Post2";
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
 import FormData from "form-data";
@@ -56,16 +57,17 @@ const FeedScreen = () => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
       {isLoading ? (
         <ActivityIndicator style={{ marginTop: 20 }} size="large" />
       ) : (
         <FlatList
+          contentContainerStyle={{ paddingTop: 8 }}
           showsVerticalScrollIndicator={false}
           data={posts}
           keyExtractor={(post) => post.post.uuid}
           renderItem={({ item }) => {
-            return <Post post={item} />;
+            return <Post2 post={item} />;
           }}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
