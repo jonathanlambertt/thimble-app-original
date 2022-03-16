@@ -6,12 +6,14 @@ import {
   Image,
   TouchableOpacity,
   Share,
+  FlatList,
 } from "react-native";
 import { Avatar } from "react-native-elements";
 import { Entypo, Feather } from "@expo/vector-icons";
 import { LinkPreview } from "@flyerhq/react-native-link-preview";
 import Constants from "expo-constants";
 import * as RootNavigation from "../../src/RootNavigation";
+import Reaction from "./Reaction";
 
 const Post = ({ post }) => {
   const onShare = async () => {
@@ -24,7 +26,7 @@ const Post = ({ post }) => {
 
   return (
     <View style={styles.postContainer}>
-      {/* Post Header Content */}
+      {/* Post Header */}
       <View style={styles.headerContainer}>
         {/* Profile Picture */}
         {post.post.owner.profile_picture ? (
@@ -67,16 +69,17 @@ const Post = ({ post }) => {
           </View>
         </View>
         {/* Options Icon */}
-        {/* <Entypo
-          name="dots-three-horizontal"
-          size={16}
-          color="black"
-          containerStyle={{ justifyContent: "flex-end", flex: 1 }}
-          style={{
-            alignSelf: "center",
-            marginRight: 15,
-          }}
-        /> */}
+        {/* <TouchableOpacity style={{ alignSelf: "center" }}>
+          <Entypo
+            name="dots-three-horizontal"
+            size={16}
+            color="black"
+            containerStyle={{ justifyContent: "flex-end", flex: 1 }}
+            style={{
+              marginRight: 15,
+            }}
+          />
+        </TouchableOpacity> */}
       </View>
       {/* Post Content */}
       {post.post.post_type === 0 ? (
@@ -88,6 +91,19 @@ const Post = ({ post }) => {
           <Image style={styles.image} source={{ uri: post.post.photo }} />
         </View>
       ) : null}
+      {/* Recent Reactions */}
+      {post.reactions.newest_three.length === 0 ? null : (
+        <FlatList
+          style={{ marginLeft: 15, marginBottom: 8 }}
+          data={post.reactions.newest_three}
+          horizontal={true}
+          scrollEnabled={false}
+          keyExtractor={(item) => item.owner.profile_picture}
+          renderItem={({ item }) => {
+            return <Reaction reaction={item} />;
+          }}
+        />
+      )}
       {/* Post Actions */}
       <View style={styles.postActionsContainer}>
         <TouchableOpacity
@@ -120,7 +136,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: "#dcdcdc",
+    borderColor: "#ececec",
   },
   profilePicture: {
     borderWidth: 0.5,

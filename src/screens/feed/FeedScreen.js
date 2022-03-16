@@ -57,7 +57,7 @@ const FeedScreen = () => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#f5f5f5" }}>
+    <View style={{ flex: 1, backgroundColor: "#fafafa" }}>
       {isLoading ? (
         <ActivityIndicator style={{ marginTop: 20 }} size="large" />
       ) : (
