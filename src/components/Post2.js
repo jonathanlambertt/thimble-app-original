@@ -109,7 +109,10 @@ const Post = ({ post }) => {
         <TouchableOpacity
           style={styles.action}
           onPress={() => {
-            RootNavigation.navigate("ReactFlow");
+            RootNavigation.navigate("ReactFlow", {
+              screen: "React",
+              params: { postID: post.post.uuid },
+            });
           }}
         >
           <View style={{ flex: 1, flexDirection: "row" }}>
@@ -133,7 +136,7 @@ const styles = StyleSheet.create({
   postContainer: {
     backgroundColor: "#fff",
     marginBottom: 8,
-    marginHorizontal: 5,
+    marginHorizontal: 8,
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "#ececec",

@@ -46,7 +46,7 @@ const Reaction = ({ reaction }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    marginRight: 5,
+    marginRight: 8,
     borderWidth: 1,
     borderColor: "#dcdcdc",
     borderRadius: 5,

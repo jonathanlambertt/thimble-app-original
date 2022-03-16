@@ -1,20 +1,18 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { View, Text, SafeAreaView } from "react-native";
 import EmojiSelector, { Categories } from "react-native-emoji-selector";
 import { Button } from "react-native-elements";
-import { Context as ReactContext } from "../context/ReactContext";
 import thimbleApi from "../api/thimble";
 
-const ReactScreen = ({ navigation: { goBack } }) => {
-  const { state } = useContext(ReactContext);
+const ReactScreen = ({ route, navigation: { goBack } }) => {
+  const { postID } = route.params;
   const [reaction, setReaction] = useState("👍");
   const [reactIsDisabled, setReactIsDisabled] = useState(false);
 
   const sendReaction = async () => {
     setReactIsDisabled(true);
     try {
-      await thimbleApi.post(`r/${state.postId}`, { reaction: reaction });
-      state.updateReactionData();
+      await thimbleApi.post(`r/${postID}`, { reaction: reaction });
       goBack();
     } catch (error) {}
   };
