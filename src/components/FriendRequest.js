@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { Button } from "react-native-elements";
+import { Avatar,Button } from "react-native-elements";
 
 const FriendRequest = ({ result, handleFriendRequest }) => {
   return (

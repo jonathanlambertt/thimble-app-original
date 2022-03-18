@@ -11,9 +11,9 @@ import {
 import thimbleApi from "../../api/thimble";
 import Post from "../../components/Post";
 import Post2 from "../../components/Post2";
-import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
 import FormData from "form-data";
+import * as Device from 'expo-device';
 
 const FeedScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -97,7 +97,7 @@ const FeedScreen = () => {
 
 async function registerForPushNotifications() {
   let token;
-  if (Constants.isDevice) {
+  if (Device.isDevice) {
     const { status: existingStatus } =
       await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
