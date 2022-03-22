@@ -7,7 +7,7 @@ const Friend = ({ result }) => {
   return (
     <View style={styles.container}>
       <UserInfoDisplay
-        profile_photo_url={result.profile_picture}
+        profilePhotoUrl={result.profile_picture}
         username={result.user}
         fullName={result.full_name}
       />

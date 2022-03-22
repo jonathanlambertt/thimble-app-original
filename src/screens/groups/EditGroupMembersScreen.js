@@ -92,7 +92,7 @@ const EditGroupMembersScreen = () => {
               />
             )}
 
-            <View style={{ alignSelf: "center" }}>
+            <View style={{ alignSelf: "center", flex: 1 }}>
               {section.title === "Current Members" ? (
                 <TouchableOpacity
                   onPress={() => addOrRemoveMember(item.uuid, "remove")}

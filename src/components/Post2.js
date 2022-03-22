@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   StyleSheet,
@@ -14,8 +14,30 @@ import { LinkPreview } from "@flyerhq/react-native-link-preview";
 import Constants from "expo-constants";
 import * as RootNavigation from "../../src/RootNavigation";
 import Reaction from "./Reaction";
+import { Context as ReactContext } from "../context/ReactContext";
 
 const Post = ({ post }) => {
+  const { setUpdateReactionData } = useContext(ReactContext);
+  const [reactionCount, setReactionCount] = useState(
+    post.reactions.total_reactions
+  );
+  const [recentReactions, setRecentReactions] = useState(
+    post.reactions.newest_three
+  );
+
+  const updateReactionContent = (reaction) => {
+    setReactionCount(reactionCount + 1);
+    setRecentReactions([
+      ...recentReactions,
+      {
+        owner: {
+          profile_picture: post.post.owner.profile_picture,
+        },
+        reaction: reaction,
+      },
+    ]);
+  };
+
   const onShare = async () => {
     try {
       await Share.share({
@@ -92,10 +114,10 @@ const Post = ({ post }) => {
         </View>
       ) : null}
       {/* Recent Reactions */}
-      {post.reactions.newest_three.length === 0 ? null : (
+      {recentReactions.length === 0 ? null : (
         <FlatList
           style={{ marginLeft: 15, marginBottom: 8 }}
-          data={post.reactions.newest_three}
+          data={recentReactions}
           horizontal={true}
           scrollEnabled={false}
           keyExtractor={(item) => item.owner.profile_picture}
@@ -109,6 +131,7 @@ const Post = ({ post }) => {
         <TouchableOpacity
           style={styles.action}
           onPress={() => {
+            setUpdateReactionData({ f: updateReactionContent });
             RootNavigation.navigate("ReactFlow", {
               screen: "React",
               params: { postID: post.post.uuid },
@@ -117,10 +140,8 @@ const Post = ({ post }) => {
         >
           <View style={{ flex: 1, flexDirection: "row" }}>
             <Entypo name="emoji-happy" size={18} color="black" />
-            {post.reactions.total_reactions > 0 ? (
-              <Text style={styles.reactionCount}>
-                {post.reactions.total_reactions}
-              </Text>
+            {reactionCount > 0 ? (
+              <Text style={styles.reactionCount}>{reactionCount}</Text>
             ) : null}
           </View>
         </TouchableOpacity>

@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   reactionEmoji: {
     alignSelf: "center",
     fontSize: 11,
-    marginLeft: 2,
+    marginLeft: 1,
   },
 });
 

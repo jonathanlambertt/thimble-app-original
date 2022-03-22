@@ -7,7 +7,7 @@ const UserSearchResult = ({ result }) => {
   return (
     <View style={styles.container}>
       <UserInfoDisplay
-        profile_photo_url={result.profile.profile_picture}
+        profilePhotoUrl={result.profile.profile_picture}
         username={result.profile.user}
         fullName={result.profile.full_name}
       />

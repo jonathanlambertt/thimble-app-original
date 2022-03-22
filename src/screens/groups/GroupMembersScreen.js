@@ -35,7 +35,7 @@ const GroupMembersScreen = () => {
           return (
             <View style={{ marginTop: 2, paddingLeft: 15, paddingVertical: 8 }}>
               <UserInfoDisplay
-                profile_photo_url={item.profile_picture}
+                profilePhotoUrl={item.profile_picture}
                 username={item.user}
                 fullName={item.full_name}
               />

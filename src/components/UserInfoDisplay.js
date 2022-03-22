@@ -2,17 +2,17 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Avatar } from "react-native-elements";
 
-const UserInfoDisplay = ({ profile_photo_url, username, fullName }) => {
+const UserInfoDisplay = ({ profilePhotoUrl, username, fullName }) => {
   return (
     <View style={styles.container}>
-      {profile_photo_url ? (
+      {profilePhotoUrl ? (
         <Avatar
           containerStyle={styles.profilePhotoContainer}
           rounded
           icon={{ name: "user", type: "feather", color: "#333" }}
           size={55}
           source={{
-            uri: profile_photo_url,
+            uri: profilePhotoUrl,
           }}
         />
       ) : (

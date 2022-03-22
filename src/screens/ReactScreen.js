@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, SafeAreaView } from "react-native";
 import EmojiSelector, { Categories } from "react-native-emoji-selector";
 import { Button } from "react-native-elements";
 import thimbleApi from "../api/thimble";
+import { Context as ReactContext } from "../context/ReactContext";
 
 const ReactScreen = ({ route, navigation: { goBack } }) => {
+  const { state } = useContext(ReactContext);
   const { postID } = route.params;
   const [reaction, setReaction] = useState("👍");
   const [reactIsDisabled, setReactIsDisabled] = useState(false);
@@ -40,6 +42,7 @@ const ReactScreen = ({ route, navigation: { goBack } }) => {
       </View>
       <Button
         onPress={() => {
+          state.updateReactionData(reaction);
           sendReaction();
         }}
         titleStyle={{ fontSize: 16, fontWeight: "bold" }}
